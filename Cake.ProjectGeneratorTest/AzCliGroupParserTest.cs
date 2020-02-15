@@ -204,5 +204,9 @@ namespace Cake.ProjectGenerator.Test
         {
             Messages.Add(message);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

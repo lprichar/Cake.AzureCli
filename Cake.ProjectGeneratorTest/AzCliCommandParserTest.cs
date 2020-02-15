@@ -8,6 +8,43 @@ namespace Cake.ProjectGenerator.Test
     public class AzCliCommandParserTest
     {
         [Test]
+        public void ParseTrippleArgs()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Command")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az deploymentmanager artifact-source create", "Creates an artifact source.")
+                        },
+                    },
+                    new PageHeader("Arguments")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("--artifact-source-name --name -n [Required]", "The name of the artifact source."),
+                        }
+                    },
+                }
+            };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliCommandParser(fakeLogger);
+
+            // ACT
+            var cliCommand = azCliParserService.ParsePage(parsedPage);
+
+            // ASSERT
+            var argument = cliCommand.Arguments.ShouldHaveSingleItem();
+            argument.Name.ShouldBe("--artifact-source-name");
+            argument.ShortName.ShouldBe("-n");
+            argument.Required.ShouldBeTrue();
+        }
+
+        [Test]
         public void ParseAzAcrCreate()
         {
             // ARRANGE

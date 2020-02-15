@@ -1,6 +1,8 @@
-﻿namespace Cake.AzCliParser
+﻿using System;
+
+namespace Cake.AzCliParser
 {
-    public class AzCliParser
+    public class AzCliParser : IDisposable
     {
         private readonly CommandExecutor _commandExecutor;
         private readonly PageParser _pageParser;
@@ -58,6 +60,11 @@
                 slimSubgroup.Parents = parents;
                 ParseGroup(parents + " " + slimSubgroup.Name, slimSubgroup);
             }
+        }
+
+        public void Dispose()
+        {
+            _logger.Dispose();
         }
     }
 }

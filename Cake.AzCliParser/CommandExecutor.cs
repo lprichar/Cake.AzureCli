@@ -31,7 +31,7 @@ namespace Cake.AzCliParser
             _logger.Debug(command);
             process.Start();
 
-            process.WaitForExit(50);
+            process.WaitForExit(1);
             var helpOutput = process.StandardOutput.ReadToEnd();
             var standardError = process.StandardError.ReadToEnd();
             if (!string.IsNullOrWhiteSpace(standardError))

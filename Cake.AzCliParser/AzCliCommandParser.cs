@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -104,7 +103,8 @@ namespace Cake.AzCliParser
             var parts = name.Split(' ');
             if (parts.Length > 2)
             {
-                throw new ArgumentException("Too many arguments can't parse: " + name);
+                _logger.Warn($"Multiple synonyms for command {name}, just using first and last");
+                return (parts[0], parts.Last());
             }
 
             if (parts.Length == 1)

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Cake.AzCliParser
 {
-    public interface ILogger
+    public interface ILogger : IDisposable
     {
         void Warn(string message);
         void Debug(string message);
@@ -12,6 +12,8 @@ namespace Cake.AzCliParser
 
     public class Logger : ILogger
     {
+        private readonly FileStream _fileStream;
+        private readonly StreamWriter _streamWriter;
         private const string LogFileName = "AzCliParser.log";
 
         public Logger()
@@ -20,11 +22,14 @@ namespace Cake.AzCliParser
             {
                 File.Delete(LogFileName);
             }
+
+            _fileStream = File.OpenWrite(LogFileName);
+            _streamWriter = new StreamWriter(_fileStream);
         }
 
         private void Log(string message)
         {
-            File.WriteAllLines(LogFileName, new[] { message });
+            _streamWriter.Write(message + Environment.NewLine);
             Console.WriteLine(message);
         }
 
@@ -41,6 +46,14 @@ namespace Cake.AzCliParser
         public void Error(string message)
         {
             Log($"ERROR: {DateTime.Now:g} {message}");
+        }
+
+        public void Dispose()
+        {
+            _streamWriter.Close();
+            _fileStream.Close();
+            _streamWriter.Dispose();
+            _fileStream.Dispose();
         }
     }
 }

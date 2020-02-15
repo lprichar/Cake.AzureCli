@@ -8,8 +8,15 @@ namespace Cake.AzCliParser
         static void Main(string[] args)
         {
             var azCliParser = new AzCliParser();
-            var cliProgram = azCliParser.ParseRoot();
-            WriteOutCliProgram(cliProgram);
+            try
+            {
+                var cliProgram = azCliParser.ParseRoot();
+                WriteOutCliProgram(cliProgram);
+            }
+            finally
+            {
+                azCliParser.Dispose();
+            }
         }
 
         private static void WriteOutCliProgram(CliProgram cliProgram)
