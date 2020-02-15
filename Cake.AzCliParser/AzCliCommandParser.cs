@@ -8,7 +8,7 @@ namespace Cake.AzCliParser
 {
     public class AzCliCommandParser
     {
-        private static readonly List<string> ExpectedSections = new List<string> { "Command", "Arguments", "Network Rule Arguments", "Global Arguments", "Examples" };
+        private static readonly List<string> ExpectedSections = new List<string> { "Command", "Arguments", "Examples" };
         private readonly Logger _logger;
 
         public AzCliCommandParser()
@@ -23,7 +23,7 @@ namespace Cake.AzCliParser
             var arguments = GetArguments(parsedPage);
             var examples = GetExamples(parsedPage);
 
-            var unexpectedSections = parsedPage.Headers.Where(h => !ExpectedSections.Contains(h.Title));
+            var unexpectedSections = parsedPage.Headers.Where(h => !ExpectedSections.Any(es => es.EndsWith(h.Title)));
             var name = parsedPage.Headers[0].NameValues[0].Name;
 
             foreach (var unexpectedSection in unexpectedSections)
@@ -55,23 +55,13 @@ namespace Cake.AzCliParser
 
         private List<CliArgument> GetArguments(ParsedPage parsedPage)
         {
-            var arguments = GetSectionNameValuesOrDefault(parsedPage, "Arguments");
-            var globalArguments = GetSectionNameValuesOrDefault(parsedPage, "Global Arguments");
-            var networkRuleArguments = GetSectionNameValuesOrDefault(parsedPage, "Network Rule Arguments");
+            var allArguments = parsedPage.Headers
+                .Where(h => h.Title.EndsWith("Arguments"))
+                .SelectMany(h => h.NameValues);
 
-            var allArguments = arguments
-                .Concat(networkRuleArguments)
-                .Concat(globalArguments);
             return allArguments
                 .Select(ParseArgument)
                 .ToList();
-        }
-
-        private static List<NameValue> GetSectionNameValuesOrDefault(ParsedPage parsedPage, string title)
-        {
-            var section = parsedPage.Headers.FirstOrDefault(i => i.Title == title);
-            if (section == null) return new List<NameValue>();
-            return section.NameValues;
         }
 
         private CliArgument ParseArgument(NameValue nameValue)
