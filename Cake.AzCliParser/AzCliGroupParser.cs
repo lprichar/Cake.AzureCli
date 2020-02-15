@@ -7,9 +7,9 @@ namespace Cake.AzCliParser
     public class AzCliGroupParser
     {
         private static readonly List<string> ExpectedSections = new List<string> { "Group", "Commands:", "Subgroups:" };
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
-        public AzCliGroupParser(Logger logger)
+        public AzCliGroupParser(ILogger logger)
         {
             _logger = logger;
         }

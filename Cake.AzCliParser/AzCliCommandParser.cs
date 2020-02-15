@@ -9,9 +9,9 @@ namespace Cake.AzCliParser
     public class AzCliCommandParser
     {
         private static readonly List<string> ExpectedSections = new List<string> { "^Command$", "Arguments$", "^Examples$", "^For more specific examples" };
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
-        public AzCliCommandParser(Logger logger)
+        public AzCliCommandParser(ILogger logger)
         {
             _logger = logger;
         }

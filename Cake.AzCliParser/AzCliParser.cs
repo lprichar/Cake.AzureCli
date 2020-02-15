@@ -6,7 +6,7 @@
         private readonly PageParser _pageParser;
         private readonly AzCliGroupParser _groupParser;
         private readonly AzCliCommandParser _commandParser;
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
         public AzCliParser()
         {

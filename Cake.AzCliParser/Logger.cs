@@ -3,7 +3,14 @@ using System.IO;
 
 namespace Cake.AzCliParser
 {
-    public class Logger
+    public interface ILogger
+    {
+        void Warn(string message);
+        void Debug(string message);
+        void Error(string message);
+    }
+
+    public class Logger : ILogger
     {
         private const string LogFileName = "AzCliParser.log";
 

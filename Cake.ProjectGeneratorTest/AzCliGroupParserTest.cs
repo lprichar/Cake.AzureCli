@@ -8,10 +8,38 @@ namespace Cake.ProjectGenerator.Test
     public class AzCliGroupParserTest
     {
         [Test]
+        public void LogUnexpectedSections()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Group")
+                    {
+                        TextBlocks = new List<TextBlock>
+                        {
+                            new TextBlock("az cli")
+                        }
+                    },
+                    new PageHeader("Zzzzz"),
+                }
+            };
+            var fakeLogger = new FakeLogger();
+
+            // ACT
+            var azCliGroupParser = new AzCliGroupParser(fakeLogger);
+            azCliGroupParser.ParsePage(parsedPage);
+
+            // ASSERT
+            fakeLogger.Messages.ShouldContain("Unexpected section Zzzzz in az cli");
+        }
+
+        [Test]
         public void ParseAzGroupTest()
         {
             // ARRANGE
-            var azCliParserService = new AzCliGroupParser();
+            var azCliParserService = new AzCliGroupParser(new FakeLogger());
             var parsedPage = new ParsedPage
             {
                 Headers = new List<PageHeader>
@@ -59,7 +87,8 @@ namespace Cake.ProjectGenerator.Test
         public void ParseAzAksGroupTest()
         {
             // ARRANGE
-            var azCliParserService = new AzCliGroupParser();
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliGroupParser(fakeLogger);
             var parsedPage = new ParsedPage
             {
                 Headers = new List<PageHeader>
@@ -110,5 +139,25 @@ namespace Cake.ProjectGenerator.Test
             secondCommand.IsPreview.ShouldBeTrue();
         }
 
+    }
+
+    public class FakeLogger : ILogger
+    {
+        public List<string> Messages { get; set; } = new List<string>();
+
+        public void Warn(string message)
+        {
+            Messages.Add(message);
+        }
+
+        public void Debug(string message)
+        {
+            Messages.Add(message);
+        }
+
+        public void Error(string message)
+        {
+            Messages.Add(message);
+        }
     }
 }

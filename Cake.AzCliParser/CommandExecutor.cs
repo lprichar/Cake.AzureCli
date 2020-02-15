@@ -4,9 +4,9 @@ namespace Cake.AzCliParser
 {
     public class CommandExecutor
     {
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
-        public CommandExecutor(Logger logger)
+        public CommandExecutor(ILogger logger)
         {
             _logger = logger;
         }

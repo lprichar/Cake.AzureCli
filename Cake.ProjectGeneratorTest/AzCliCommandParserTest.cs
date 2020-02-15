@@ -45,9 +45,10 @@ namespace Cake.ProjectGenerator.Test
                     },
                 }
             };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliCommandParser(fakeLogger);
 
             // ACT
-            var azCliParserService = new AzCliCommandParser();
             var cliCommand = azCliParserService.ParsePage(parsedPage);
 
             // ASSERT
@@ -123,9 +124,10 @@ namespace Cake.ProjectGenerator.Test
                     }
                 }
             };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliCommandParser(fakeLogger);
 
             // ACT
-            var azCliParserService = new AzCliCommandParser();
             var cliCommand = azCliParserService.ParsePage(parsedPage);
 
             // ASSERT
