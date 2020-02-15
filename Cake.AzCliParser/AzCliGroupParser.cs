@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cake.AzCliParser
 {
-    public class AzCliGroupParser
+    public class AzCliGroupParser : ParserBase
     {
         private static readonly List<string> ExpectedSections = new List<string> { "Group", "Commands:", "Subgroups:" };
         private readonly ILogger _logger;
@@ -72,7 +72,7 @@ namespace Cake.AzCliParser
             };
         }
 
-        private static List<CliGroup> GetSubgroups(ParsedPage parsedPage)
+        private List<CliGroup> GetSubgroups(ParsedPage parsedPage)
         {
             var subgroups = parsedPage.Headers.FirstOrDefault(i => i.Title == "Subgroups:");
             if (subgroups == null) return new List<CliGroup>();
@@ -82,22 +82,20 @@ namespace Cake.AzCliParser
                 .ToList();
         }
 
-        private static CliGroup ParsePage(NameValue nv)
+        private CliGroup ParsePage(NameValue nv)
         {
             var name = nv.Name;
 
-            var isPreview = name.Contains("[Preview]");
-            if (isPreview)
-            {
-                name = name.Replace("[Preview]", "").Trim();
-            }
+            var isPreview = ParseTag(ref name, "[Preview]");
+            var isDeprecated = ParseTag(ref name, "[Deprecated]");
 
             return new CliGroup()
             {
                 Name = name,
                 Description = nv.Value,
                 Commands = new List<CliCommand>(),
-                IsPreview = isPreview
+                IsPreview = isPreview,
+                IsDeprecated = isDeprecated
             };
         }
     }

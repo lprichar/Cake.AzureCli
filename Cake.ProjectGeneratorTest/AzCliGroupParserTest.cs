@@ -36,6 +36,51 @@ namespace Cake.ProjectGenerator.Test
         }
 
         [Test]
+        public void ParseAzCosmosdbDeprecatedSubgroup()
+        {
+            // ARRANGE
+            var azCliParserService = new AzCliGroupParser(new FakeLogger());
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Group")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az cosmosdb", "Manage Azure Cosmos DB database accounts.")
+                        }
+                    },
+                    new PageHeader("Subgroups:")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("collection  [Deprecated]", "Manage Azure Cosmos DB collections."),
+                        }
+                    },
+                    new PageHeader("Commands:")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("failover-priority-change", "Changes the failover priority for the Azure Cosmos DB database account."),
+                        }
+                    }
+                }
+            };
+
+            // ACT
+            var cliGroup = azCliParserService.ParsePage(parsedPage);
+
+            // ASSERT
+            cliGroup.Name.ShouldBe("az cosmosdb");
+
+            var amsSubgroup = cliGroup.Subgroups.ShouldHaveSingleItem();
+            amsSubgroup.Name.ShouldBe("collection");
+            amsSubgroup.IsDeprecated.ShouldBeTrue();
+            amsSubgroup.IsPreview.ShouldBeFalse();
+        }
+
+        [Test]
         public void ParseAzGroupTest()
         {
             // ARRANGE

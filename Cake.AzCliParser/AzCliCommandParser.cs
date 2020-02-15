@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Cake.AzCliParser
 {
-    public class AzCliCommandParser
+    public class AzCliCommandParser : ParserBase
     {
         private static readonly List<string> ExpectedSections = new List<string> { "^Command$", "Arguments$", "^Examples$", "^For more specific examples" };
         private readonly ILogger _logger;
@@ -70,17 +70,9 @@ namespace Cake.AzCliParser
         private CliArgument ParseArgument(NameValue nameValue)
         {
             var name = nameValue.Name;
-            var required = name.Contains("[Required]");
-            if (required)
-            {
-                name = name.Replace("[Required]", "").Trim();
-            }
 
-            var inPreview = name.Contains("[Preview]");
-            if (inPreview)
-            {
-                name = name.Replace("[Preview]", "").Trim();
-            }
+            var required = ParseTag(ref name, "[Required]");
+            var inPreview = ParseTag(ref name, "[Preview]");
 
             var parts = GetNames(name);
             var allowedValues = ParseAllowedValues(nameValue.Value);

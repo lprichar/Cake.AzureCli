@@ -14,6 +14,7 @@ namespace Cake.AzCliParser
         public List<CliGroup> Subgroups { get; set; }
         public List<CliCommand> Commands { get; set; }
         public bool IsPreview { get; set; }
+        public bool IsDeprecated { get; set; }
         public string Parents { get; set; }
 
         public void Merge(CliGroup fullGroup)
