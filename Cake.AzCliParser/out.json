@@ -1,0 +1,978 @@
+{
+  "RootCommand": {
+    "Name": "az",
+    "Description": null,
+    "Subgroups": [
+      {
+        "Name": "account",
+        "Description": "Manage Azure subscription information.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "acr",
+        "Description": "Manage private registries with Azure Container Registries.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "ad",
+        "Description": "Manage Azure Active Directory Graph entities needed for Role Based Access Control.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "advisor",
+        "Description": "Manage Azure Advisor.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "aks",
+        "Description": "Manage Azure Kubernetes Services.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "ams",
+        "Description": "Manage Azure Media Services resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "apim",
+        "Description": "Manage Azure API Management services.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "appconfig",
+        "Description": "Manage App Configurations.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "appservice",
+        "Description": "Manage App Service plans.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "backup",
+        "Description": "Manage Azure Backups.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "batch",
+        "Description": "Manage Azure Batch.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "billing",
+        "Description": "Manage Azure Billing.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "bot",
+        "Description": "Manage Microsoft Azure Bot Service.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "cache",
+        "Description": "Commands to manage CLI objects cached using the \u0060--defer\u0060 argument.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "cdn",
+        "Description": "Manage Azure Content Delivery Networks (CDNs).",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "cloud",
+        "Description": "Manage registered Azure clouds.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "cognitiveservices",
+        "Description": "Manage Azure Cognitive Services accounts.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "consumption",
+        "Description": "Manage consumption of Azure resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "container",
+        "Description": "Manage Azure Container Instances.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "cosmosdb",
+        "Description": "Manage Azure Cosmos DB database accounts.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "deployment",
+        "Description": "Manage Azure Resource Manager deployments at subscription scope.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "deploymentmanager",
+        "Description": "Create and manage rollouts for your service.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "disk",
+        "Description": "Manage Azure Managed Disks.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "dla",
+        "Description": "Manage Data Lake Analytics accounts, jobs, and catalogs.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "dls",
+        "Description": "Manage Data Lake Store accounts and filesystems.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "dms",
+        "Description": "Manage Azure Data Migration Service (DMS) instances.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "eventgrid",
+        "Description": "Manage Azure Event Grid topics, event subscriptions, domains and domain topics.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "eventhubs",
+        "Description": "Manage Azure Event Hubs namespaces, eventhubs, consumergroups and geo recovery configurations - Alias.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "extension",
+        "Description": "Manage and update CLI extensions.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "feature",
+        "Description": "Manage resource provider features.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "functionapp",
+        "Description": "Manage function apps. To install the Azure Functions Core tools see https://github.com/Azure/azure-functions-core-tools.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "group",
+        "Description": "Manage resource groups and template deployments.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "hdinsight",
+        "Description": "Manage HDInsight resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "identity",
+        "Description": "Managed Service Identities.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "image",
+        "Description": "Manage custom virtual machine images.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "iot",
+        "Description": "Manage Internet of Things (IoT) assets.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "iotcentral",
+        "Description": "Manage IoT Central assets.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "keyvault",
+        "Description": "Manage KeyVault keys, secrets, and certificates.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "kusto",
+        "Description": "Manage Azure Kusto resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "lab",
+        "Description": "Manage Azure DevTest Labs.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "lock",
+        "Description": "Manage Azure locks.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "managedapp",
+        "Description": "Manage template solutions provided and maintained by Independent Software Vendors (ISVs).",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "managedservices",
+        "Description": "Manage the registration assignments and definitions in Azure.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "maps",
+        "Description": "Manage Azure Maps.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "mariadb",
+        "Description": "Manage Azure Database for MariaDB servers.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "monitor",
+        "Description": "Manage the Azure Monitor Service.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "mysql",
+        "Description": "Manage Azure Database for MySQL servers.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "netappfiles",
+        "Description": "Manage Azure NetApp Files (ANF) Resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "network",
+        "Description": "Manage Azure Network resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "openshift",
+        "Description": "Manage Azure Red Hat OpenShift Services.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "policy",
+        "Description": "Manage resource policies.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "postgres",
+        "Description": "Manage Azure Database for PostgreSQL servers.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "ppg",
+        "Description": "Manage Proximity Placement Groups.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "provider",
+        "Description": "Manage resource providers.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "redis",
+        "Description": "Manage dedicated Redis caches for your Azure applications.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "relay",
+        "Description": "Manage Azure Relay Service namespaces, WCF relays, hybrid connections, and rules.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "reservations",
+        "Description": "Manage Azure Reservations.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "resource",
+        "Description": "Manage Azure resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "role",
+        "Description": "Manage user roles for access control with Azure Active Directory and service principals.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "search",
+        "Description": "Manage Azure Search services, admin keys and query keys.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "security",
+        "Description": "Manage your security posture with Azure Security Center.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "servicebus",
+        "Description": "Manage Azure Service Bus namespaces, queues, topics, subscriptions, rules and geo-disaster recovery configuration alias.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "sf",
+        "Description": "Manage and administer Azure Service Fabric clusters.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": true
+      },
+      {
+        "Name": "sig",
+        "Description": "Manage shared image gallery.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "signalr",
+        "Description": "Manage Azure SignalR Service.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "snapshot",
+        "Description": "Manage point-in-time copies of managed disks, native blobs, or other snapshots.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "sql",
+        "Description": "Manage Azure SQL Databases and Data Warehouses.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "storage",
+        "Description": "Manage Azure Cloud Storage resources.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "tag",
+        "Description": "Manage resource tags.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "vm",
+        "Description": "Manage Linux or Windows virtual machines.",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "vmss",
+        "Description": "Manage groupings of virtual machines in an Azure Virtual Machine Scale Set (VMSS).",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      },
+      {
+        "Name": "webapp",
+        "Description": "Manage web apps. ",
+        "Subgroups": null,
+        "Commands": [],
+        "IsPreview": false
+      }
+    ],
+    "Commands": [
+      {
+        "Name": "configure",
+        "ShortDescription": "Manage Azure CLI configuration. This command is interactive.",
+        "Arguments": [
+          {
+            "Name": "--defaults",
+            "ShortName": "-d",
+            "Description": "Space-separated \u0027name=value\u0027 pairs for common argument defaults.",
+            "Required": false
+          },
+          {
+            "Name": "--list-defaults",
+            "ShortName": "-l",
+            "Description": "List all applicable defaults.  Allowed values: false, true.",
+            "Required": false
+          },
+          {
+            "Name": "--scope",
+            "ShortName": null,
+            "Description": "Scope of defaults. Using \u0022local\u0022 for settings only effective under current folder.  Allowed values: global, local.  Default: global. ",
+            "Required": false
+          },
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml. Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs. ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": [
+          {
+            "Description": "Set default resource group, webapp and VM names.",
+            "Example": "az configure --defaults group=myRG web=myweb vm=myvm"
+          },
+          {
+            "Description": "Clear default webapp and VM names.",
+            "Example": "az configure --defaults vm=\u0027\u0027 web=\u0027\u0027"
+          }
+        ]
+      },
+      {
+        "Name": "feedback",
+        "ShortDescription": "Send feedback to the Azure CLI Team!",
+        "Arguments": [
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml.  Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs.  ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": []
+      },
+      {
+        "Name": "find",
+        "ShortDescription": "I\u0027m an AI robot, my advice is based on our Azure documentation as well as the usage patterns of Azure CLI and Azure ARM users. Using me improves Azure products and documentation.",
+        "Arguments": [
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml.  Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs. ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": [
+          {
+            "Description": "Give me any Azure CLI group and I\u00C6ll show the most popular commands within the group.",
+            "Example": "az find \u0022az storage\u0022"
+          },
+          {
+            "Description": "Give me any Azure CLI command and I\u00C6ll show the most popular parameters and subcommands.",
+            "Example": "az find \u0022az monitor activity-log list\u0022"
+          },
+          {
+            "Description": "You can also enter a search term, and I\u0027ll try to help find the best commands.",
+            "Example": "az find \u0022arm template\u0022"
+          }
+        ]
+      },
+      {
+        "Name": "interactive",
+        "ShortDescription": "Start interactive mode. Installs the Interactive extension if not installed already.",
+        "Arguments": [
+          {
+            "Name": "--style",
+            "ShortName": "-s",
+            "Description": "The colors of the shell.  Allowed values: bg, br, contrast, default, grey, halloween, neon, none, pastel, primary, purple, quiet.",
+            "Required": false
+          },
+          {
+            "Name": "--update",
+            "ShortName": null,
+            "Description": "Update the Interactive extension to the latest available. ",
+            "Required": false
+          },
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml.  Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs.  ",
+            "Required": false
+          }
+        ],
+        "IsPreview": true,
+        "Examples": []
+      },
+      {
+        "Name": "login",
+        "ShortDescription": "Log in to Azure.",
+        "Arguments": [
+          {
+            "Name": "--allow-no-subscriptions",
+            "ShortName": null,
+            "Description": "Support access tenants without subscriptions. It\u0027s uncommon but useful to run tenant level commands, such as \u0027az ad\u0027.",
+            "Required": false
+          },
+          {
+            "Name": "--password",
+            "ShortName": "-p",
+            "Description": "Credentials like user password, or for a service principal, provide client secret or a pem file with key and public certificate. Will prompt if not given.",
+            "Required": false
+          },
+          {
+            "Name": "--service-principal",
+            "ShortName": null,
+            "Description": "The credential representing a service principal.",
+            "Required": false
+          },
+          {
+            "Name": "--tenant",
+            "ShortName": "-t",
+            "Description": "The AAD tenant, must provide when using service principals.",
+            "Required": false
+          },
+          {
+            "Name": "--use-cert-sn-issuer",
+            "ShortName": null,
+            "Description": "Used with a service principal configured with Subject Name and Issuer Authentication in order to support automatic certificate rolls.",
+            "Required": false
+          },
+          {
+            "Name": "--use-device-code",
+            "ShortName": null,
+            "Description": "Use CLI\u0027s old authentication flow based on device code. CLI will also use this if it can\u0027t launch a browser in your behalf, e.g. in remote SSH or Cloud Shell.",
+            "Required": false
+          },
+          {
+            "Name": "--username",
+            "ShortName": "-u",
+            "Description": "User name, service principal, or managed service identity ID. ",
+            "Required": false
+          },
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml. Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs. ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": [
+          {
+            "Description": "Log in interactively.",
+            "Example": "az login"
+          },
+          {
+            "Description": "Log in with user name and password. This doesn\u0027t work with Microsoft accounts or accounts that have two-factor authentication enabled.",
+            "Example": "az login -u johndoe@contoso.com -p VerySecret"
+          },
+          {
+            "Description": "Log in with a service principal using client secret.",
+            "Example": "az login --service-principal -u http://azure-cli-2016-08-05-14-31-15 -p VerySecret --tenant contoso.onmicrosoft.com"
+          },
+          {
+            "Description": "Log in with a service principal using client certificate.",
+            "Example": "az login --service-principal -u http://azure-cli-2016-08-05-14-31-15 -p ~/mycertfile.pem --tenant contoso.onmicrosoft.com"
+          },
+          {
+            "Description": "Log in using a VM\u0027s system assigned identity",
+            "Example": "az login --identity"
+          },
+          {
+            "Description": "Log in using a VM\u0027s user assigned identity. Client or object ids of the service identity also work",
+            "Example": "az login --identity -u /subscriptions/\u003CsubscriptionId\u003E/resourcegroups/myRG/providers/Microso ft.ManagedIdentity/userAssignedIdentities/myID"
+          }
+        ]
+      },
+      {
+        "Name": "logout",
+        "ShortDescription": "Log out to remove access to Azure subscriptions.",
+        "Arguments": [
+          {
+            "Name": "--username",
+            "ShortName": null,
+            "Description": "Account user, if missing, logout the current active account. ",
+            "Required": false
+          },
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml.  Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs.  ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": []
+      },
+      {
+        "Name": "rest",
+        "ShortDescription": "Invoke a custom request.  ",
+        "Arguments": [
+          {
+            "Name": "--method",
+            "ShortName": "-m",
+            "Description": "HTTP request method.  Allowed values: delete, get, head, options, patch, post, put.  Default: get.",
+            "Required": true
+          },
+          {
+            "Name": "--uri",
+            "ShortName": "-u",
+            "Description": "Request uri. For uri without host, CLI will assume \u0022https://management.azure.com/\u0022. Common token \u0027{subscriptionId}\u0027 will be replaced with the current subscription ID specified by \u0027az account set\u0027.",
+            "Required": true
+          },
+          {
+            "Name": "--body",
+            "ShortName": "-b",
+            "Description": "Request body. Use @{file} to load from a file.",
+            "Required": false
+          },
+          {
+            "Name": "--headers",
+            "ShortName": null,
+            "Description": "Space-separated headers in KEY=VALUE format or JSON string. Use @{file} to load from a file.",
+            "Required": false
+          },
+          {
+            "Name": "--output-file",
+            "ShortName": null,
+            "Description": "Save response payload to a file.",
+            "Required": false
+          },
+          {
+            "Name": "--resource",
+            "ShortName": null,
+            "Description": "Resource url for which CLI should acquire a token in order to access the service. The token will be placed in the \u0022Authorization\u0022 header. By default, CLI can figure this out based on \u0022--url\u0022 argument, unless you use ones not in the list of \u0022az cloud show --query endpoints\u0022.",
+            "Required": false
+          },
+          {
+            "Name": "--skip-authorization-header",
+            "ShortName": null,
+            "Description": "Do not auto append \u0022Authorization\u0022 header.",
+            "Required": false
+          },
+          {
+            "Name": "--uri-parameters",
+            "ShortName": null,
+            "Description": "Space-separated queries in KEY=VALUE format or JSON string. Use @{file} to load from a file. ",
+            "Required": false
+          },
+          {
+            "Name": "--debug",
+            "ShortName": null,
+            "Description": "Increase logging verbosity to show all debug logs.",
+            "Required": false
+          },
+          {
+            "Name": "--help",
+            "ShortName": "-h",
+            "Description": "Show this help message and exit.",
+            "Required": false
+          },
+          {
+            "Name": "--output",
+            "ShortName": "-o",
+            "Description": "Output format.  Allowed values: json, jsonc, none, table, tsv, yaml.  Default: json.",
+            "Required": false
+          },
+          {
+            "Name": "--query",
+            "ShortName": null,
+            "Description": "JMESPath query string. See http://jmespath.org/ for more information and examples.",
+            "Required": false
+          },
+          {
+            "Name": "--subscription",
+            "ShortName": null,
+            "Description": "Name or ID of subscription. You can configure the default subscription using \u0060az account set -s NAME_OR_ID\u0060.",
+            "Required": false
+          },
+          {
+            "Name": "--verbose",
+            "ShortName": null,
+            "Description": "Increase logging verbosity. Use --debug for full debug logs. ",
+            "Required": false
+          }
+        ],
+        "IsPreview": false,
+        "Examples": [
+          {
+            "Description": "Get Audit log through Microsoft Graph",
+            "Example": "az rest --method get --uri https://graph.microsoft.com/beta/auditLogs/directoryAudits"
+          },
+          {
+            "Description": "Update a Azure Active Directory Graph User\u0027s display name",
+            "Example": "az rest --method patch --uri \u0022https://graph.microsoft.com/v1.0/users/johndoe@azuresdkteam.onmicrosoft.com\u0022 --body \u0022{\\\u0022displayName\\\u0022: \\\u0022jondoe2\\\u0022}\u0022"
+          },
+          {
+            "Description": "Get a virtual machine",
+            "Example": "az rest --method get --uri /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName }/providers/Microsoft.Compute/virtualMachines/{vmName}?api-version=2019-03-01"
+          },
+          {
+            "Description": "Create a public IP address from body.json file",
+            "Example": "az rest --method put --uri https://management.azure.com/subscriptions/{subscriptionId}/resou rceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPAddresses/{publicIpAddress Name}?api-version=2019-09-01 --body @body.json"
+          }
+        ]
+      }
+    ],
+    "IsPreview": false
+  },
+  "GlobalArguments": null
+}

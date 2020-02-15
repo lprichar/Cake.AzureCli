@@ -5,7 +5,6 @@ namespace Cake.AzCliParser
     public class CliProgram
     {
         public CliGroup RootCommand { get; set; }
-        public List<CliArgument> GlobalArguments { get; set; }
     }
 
     public class CliGroup
@@ -14,6 +13,7 @@ namespace Cake.AzCliParser
         public string Description { get; set; }
         public List<CliGroup> Subgroups { get; set; }
         public List<CliCommand> Commands { get; set; }
+        public bool IsPreview { get; set; }
     }
 
     public class CliCommand

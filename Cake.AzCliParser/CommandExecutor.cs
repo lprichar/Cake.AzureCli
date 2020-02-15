@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace Cake.AzCliParser
 {
@@ -6,7 +7,7 @@ namespace Cake.AzCliParser
     {
         public string ExecuteCommand(string command)
         {
-            var process = new Process
+            using var process = new Process
             {
                 StartInfo =
                 {
@@ -20,6 +21,7 @@ namespace Cake.AzCliParser
                 }
             };
 
+            Console.WriteLine(command);
             process.Start();
 
             process.WaitForExit(500);

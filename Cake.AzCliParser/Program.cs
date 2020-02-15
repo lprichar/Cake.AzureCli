@@ -14,10 +14,10 @@ namespace Cake.AzCliParser
 
             var azHelpOutput = commandExecutor.ExecuteCommand("az --help");
             var parsedPage = pageParser.ParsePage(azHelpOutput);
-            CliGroup cliGroup = groupParser.ParseCliGroup(parsedPage);
+            var cliGroup = groupParser.ParseCliGroup(parsedPage);
             foreach (var command in cliGroup.Commands)
             {
-                var commandOutput = commandExecutor.ExecuteCommand(command.Name + " --help");
+                var commandOutput = commandExecutor.ExecuteCommand($"az {command.Name} --help");
                 var commandPage = pageParser.ParsePage(commandOutput);
                 var cliCommand = commandParser.ParseCliCommand(commandPage);
                 command.Merge(cliCommand);
@@ -31,8 +31,11 @@ namespace Cake.AzCliParser
 
         private static void WriteOutCliProgram(CliProgram cliProgram)
         {
-            var cliProgramSerialized = JsonSerializer.Serialize(cliProgram);
-            File.WriteAllText("out.json", cliProgramSerialized);
+            var cliProgramSerialized = JsonSerializer.Serialize(cliProgram, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            });
+            File.WriteAllText("../../../out.json", cliProgramSerialized);
         }
     }
 }

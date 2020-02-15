@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cake.AzCliParser
@@ -7,6 +8,8 @@ namespace Cake.AzCliParser
     {
         public ParsedPage ParsePage(string helpPage)
         {
+            Debug.Assert(!string.IsNullOrWhiteSpace(helpPage));
+
             var lines = helpPage.Split("\n")
                 .Select(l => l.TrimEnd('\r'));
 

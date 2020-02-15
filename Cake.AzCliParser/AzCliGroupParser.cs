@@ -13,13 +13,23 @@ namespace Cake.AzCliParser
             var subgroups = GetSubgroups(parsedPage);
             var commands = GetCommands(parsedPage);
 
+            var nameDescription = ParseNameAndDescription(parsedPage);
+
             return new CliGroup
             {
-                Name = parsedPage.Headers[0].NameValues[0].Name,
-                Description = parsedPage.Headers[0].NameValues[0].Value,
+                Name = nameDescription.Name,
+                Description = nameDescription.Description,
                 Subgroups = subgroups,
                 Commands = commands
             };
+        }
+
+        private static (string Name, string Description) ParseNameAndDescription(ParsedPage parsedPage)
+        {
+            Debug.Assert(parsedPage.Headers.Count > 0);
+            var firstHeader = parsedPage.Headers[0];
+            if (firstHeader.TextBlocks.Any()) return (firstHeader.TextBlocks[0].Text, null);
+            return (firstHeader.NameValues[0].Name, firstHeader.NameValues[0].Value);
         }
 
         private List<CliCommand> GetCommands(ParsedPage parsedPage)
@@ -52,14 +62,29 @@ namespace Cake.AzCliParser
         {
             var subgroups = parsedPage.Headers.FirstOrDefault(i => i.Title == "Subgroups:");
             if (subgroups == null) return new List<CliGroup>();
+
             return subgroups.NameValues
-                .Select(nv => new CliGroup()
-                {
-                    Name = nv.Name,
-                    Description = nv.Value,
-                    Commands = new List<CliCommand>()
-                })
+                .Select(ParseCliGroup)
                 .ToList();
+        }
+
+        private static CliGroup ParseCliGroup(NameValue nv)
+        {
+            var name = nv.Name;
+
+            var isPreview = name.Contains("[Preview]");
+            if (isPreview)
+            {
+                name = name.Replace("[Preview]", "").Trim();
+            }
+
+            return new CliGroup()
+            {
+                Name = name,
+                Description = nv.Value,
+                Commands = new List<CliCommand>(),
+                IsPreview = isPreview
+            };
         }
     }
 }
