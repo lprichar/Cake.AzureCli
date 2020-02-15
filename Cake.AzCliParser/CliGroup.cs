@@ -21,6 +21,11 @@ namespace Cake.AzCliParser
             Subgroups = fullGroup.Subgroups;
             Commands = fullGroup.Commands;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class CliCommand
@@ -36,6 +41,11 @@ namespace Cake.AzCliParser
         {
             Arguments = command.Arguments;
             Examples = command.Examples;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 
@@ -53,5 +63,10 @@ namespace Cake.AzCliParser
         public bool Required { get; set; }
         public bool InPreview { get; set; }
         public List<string> AllowedValues { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

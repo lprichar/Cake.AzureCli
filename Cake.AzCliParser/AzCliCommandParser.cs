@@ -8,6 +8,14 @@ namespace Cake.AzCliParser
 {
     public class AzCliCommandParser
     {
+        private static readonly List<string> ExpectedSections = new List<string> { "Command", "Arguments", "Network Rule Arguments", "Global Arguments", "Examples" };
+        private readonly Logger _logger;
+
+        public AzCliCommandParser()
+        {
+            _logger = new Logger();
+        }
+
         public CliCommand ParsePage(ParsedPage parsedPage)
         {
             Debug.Assert(parsedPage.Headers[0].Title == "Command");
@@ -15,9 +23,17 @@ namespace Cake.AzCliParser
             var arguments = GetArguments(parsedPage);
             var examples = GetExamples(parsedPage);
 
+            var unexpectedSections = parsedPage.Headers.Where(h => !ExpectedSections.Contains(h.Title));
+            var name = parsedPage.Headers[0].NameValues[0].Name;
+
+            foreach (var unexpectedSection in unexpectedSections)
+            {
+                _logger.Warn($"Unexpected section {unexpectedSection.Title} in {name}");
+            }
+
             return new CliCommand
             {
-                Name = parsedPage.Headers[0].NameValues[0].Name,
+                Name = name,
                 ShortDescription = parsedPage.Headers[0].NameValues[0].Value,
                 Arguments = arguments,
                 Examples = examples

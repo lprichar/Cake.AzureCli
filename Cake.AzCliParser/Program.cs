@@ -5,10 +5,10 @@ namespace Cake.AzCliParser
 {
     public class AzCliParser
     {
-        private CommandExecutor _commandExecutor;
-        private PageParser _pageParser;
-        private AzCliGroupParser _groupParser;
-        private AzCliCommandParser _commandParser;
+        private readonly CommandExecutor _commandExecutor;
+        private readonly PageParser _pageParser;
+        private readonly AzCliGroupParser _groupParser;
+        private readonly AzCliCommandParser _commandParser;
 
         public AzCliParser()
         {

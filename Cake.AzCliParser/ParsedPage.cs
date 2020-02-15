@@ -29,6 +29,11 @@ namespace Cake.AzCliParser
                 TextBlocks.Add(textBlock);
             }
         }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 
     public class TextBlock
@@ -62,6 +67,11 @@ namespace Cake.AzCliParser
         public int IndentationLevel { get; set; }
         public string Text { get; set; }
         public TextBlock NestedText { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 
     public class NameValue
@@ -74,5 +84,10 @@ namespace Cake.AzCliParser
 
         public string Name { get; set; }
         public string Value { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} : {Value}";
+        }
     }
 }

@@ -1,10 +1,16 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Cake.AzCliParser
 {
     public class CommandExecutor
     {
+        private Logger _logger;
+
+        public CommandExecutor()
+        {
+            _logger = new Logger();
+        }
+
         public string ExecuteCommand(string command)
         {
             using var process = new Process
@@ -21,10 +27,10 @@ namespace Cake.AzCliParser
                 }
             };
 
-            Console.WriteLine(command);
+            _logger.Debug(command);
             process.Start();
 
-            process.WaitForExit(500);
+            process.WaitForExit(100);
             var helpOutput = process.StandardOutput.ReadToEnd();
             return helpOutput;
         }
