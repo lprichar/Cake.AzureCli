@@ -21,6 +21,7 @@ namespace Cake.AzCliParser
         public string Name { get; set; }
         public string Description { get; set; }
         public List<CliArgument> Arguments { get; set; }
+        public bool Preview { get; set; }
     }
 
     public class CliArgument
@@ -28,5 +29,6 @@ namespace Cake.AzCliParser
         public string Name { get; set; }
         public string ShortName { get; set; }
         public string Description { get; set; }
+        public bool Required { get; set; }
     }
 }

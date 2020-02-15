@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\AzAksInstallConnector.txt" />
     <None Remove="Resources\AzLogin.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AzAksInstallConnector.txt" />
     <EmbeddedResource Include="Resources\AzLogin.txt" />
   </ItemGroup>
 

@@ -26,7 +26,7 @@ namespace Cake.AzCliParser
             var helpOutput = process.StandardOutput.ReadToEnd();
             var pageParser = new PageParser();
             var parsedPage = pageParser.ParsePage(helpOutput);
-            var azCliParserService = new AzCliParserService();
+            var azCliParserService = new AzCliGroupParser();
             CliGroup cliGroup = azCliParserService.ParseCliGroup(parsedPage);
             var cliProgram = new CliProgram
             {

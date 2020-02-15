@@ -2,85 +2,41 @@ using Cake.AzCliParser;
 using Cake.ProjectGenerator.Test.Resources;
 using NUnit.Framework;
 using Shouldly;
-using System.Collections.Generic;
 
-namespace Cake.ProjectGeneratorTest
+namespace Cake.ProjectGenerator.Test
 {
     public class AzCliParserServiceTest
     {
-        [Test]
-        public void Test_Command()
-        {
-            var azCliParserService = new AzCliParserService();
-            var parsedPage = new ParsedPage
-            {
-                Headers = new List<PageHeader>
-                {
-                    new PageHeader("Command")
-                    {
-                        NameValues = new List<NameValue>
-                        {
-                            new NameValue("az login", "Log in to Azure")
-                        },
-                    },
-                    new PageHeader("Arguments")
-                    {
-                        NameValues = new List<NameValue>
-                        {
-                            new NameValue("--allow-no-subscriptions", "Support access tenants without subscriptions."),
-                            new NameValue("--password -p", "Credentials like user password")
-                        }
-                    }
-                }
-            };
-            var cliCommand = azCliParserService.ParseCliCommand(parsedPage);
-            cliCommand.Name.ShouldBe("az login");
-        }
-
-        [Test]
-        public void Test_Group()
-        {
-            var azCliParserService = new AzCliParserService();
-            var parsedPage = new ParsedPage
-            {
-                Headers = new List<PageHeader>
-                {
-                    new PageHeader("Group")
-                    {
-                        NameValues = new List<NameValue>
-                        {
-                            new NameValue("az aks", "Commands to manage node pools in Kubernetes kubernetes cluster.")
-                        },
-                    },
-                    new PageHeader("Subgroups:")
-                    {
-                        NameValues = new List<NameValue>
-                        {
-                            new NameValue("nodepool", "Commands to manage node pools in Kubernetes kubernetes cluster."),
-                        }
-                    },
-                    new PageHeader("Commands:")
-                    {
-                        NameValues = new List<NameValue>
-                        {
-                            new NameValue("browse", "Show the dashboard for a Kubernetes cluster in a web browser."),
-                            new NameValue("install-connector [Preview]", "Install the ACI Connector on a managed Kubernetes cluster."),
-                        }
-                    }
-                }
-            };
-            var cliGroup = azCliParserService.ParseCliGroup(parsedPage);
-            cliGroup.Name.ShouldBe("az aks");
-        }
-
         public class PageParserTest
         {
             [Test]
+            public void TestAzAksInstallConnector()
+            {
+                // ARRANGE
+                var azAksInstallConnector = ResourceManager.GetAzAksInstallConnector();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParsePage(azAksInstallConnector);
+
+                // ASSERT
+                parsedPage.Headers[0].Title.ShouldBe("Command");
+                parsedPage.Headers[0].NameValues.Count.ShouldBe(1);
+                parsedPage.Headers[0].NameValues[0].Name.ShouldBe("az aks install-connector");
+                parsedPage.Headers[0].NameValues[0].Value.ShouldBe("Install the ACI Connector on a managed Kubernetes cluster. This command is in preview. It may be changed/removed in a future release.");
+            }
+
+            [Test]
             public void TestAzLogin()
             {
+                // ARRANGE
                 var azLogin = ResourceManager.GetAzLogin();
                 var pageParser = new PageParser();
+
+                // ACT
                 var parsedPage = pageParser.ParsePage(azLogin);
+
+                // ASSERT
                 parsedPage.Headers.Count.ShouldBe(6);
 
                 var commandHeader = parsedPage.Headers[0];
