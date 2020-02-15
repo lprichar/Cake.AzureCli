@@ -6,7 +6,7 @@ namespace Cake.AzCliParser
 {
     public class AzCliGroupParser
     {
-        public CliGroup ParseCliGroup(ParsedPage parsedPage)
+        public CliGroup ParsePage(ParsedPage parsedPage)
         {
             Debug.Assert(parsedPage.Headers[0].Title == "Group");
 
@@ -64,11 +64,11 @@ namespace Cake.AzCliParser
             if (subgroups == null) return new List<CliGroup>();
 
             return subgroups.NameValues
-                .Select(ParseCliGroup)
+                .Select(ParsePage)
                 .ToList();
         }
 
-        private static CliGroup ParseCliGroup(NameValue nv)
+        private static CliGroup ParsePage(NameValue nv)
         {
             var name = nv.Name;
 

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cake.AzCliParser
 {
     public class AzCliCommandParser
     {
-        public CliCommand ParseCliCommand(ParsedPage parsedPage)
+        public CliCommand ParsePage(ParsedPage parsedPage)
         {
             Debug.Assert(parsedPage.Headers[0].Title == "Command");
 
@@ -40,8 +41,11 @@ namespace Cake.AzCliParser
         {
             var arguments = GetSectionNameValuesOrDefault(parsedPage, "Arguments");
             var globalArguments = GetSectionNameValuesOrDefault(parsedPage, "Global Arguments");
+            var networkRuleArguments = GetSectionNameValuesOrDefault(parsedPage, "Network Rule Arguments");
 
-            var allArguments = arguments.Concat(globalArguments);
+            var allArguments = arguments
+                .Concat(networkRuleArguments)
+                .Concat(globalArguments);
             return allArguments
                 .Select(ParseArgument)
                 .ToList();
@@ -63,15 +67,35 @@ namespace Cake.AzCliParser
                 name = name.Replace("[Required]", "").Trim();
             }
 
+            var inPreview = name.Contains("[Preview]");
+            if (inPreview)
+            {
+                name = name.Replace("[Preview]", "").Trim();
+            }
+
             var parts = GetNames(name);
+            var allowedValues = ParseAllowedValues(nameValue.Value);
 
             return new CliArgument
             {
                 Name = parts.LongName,
                 ShortName = parts.ShortName,
                 Description = nameValue.Value,
-                Required = required
+                Required = required,
+                InPreview = inPreview,
+                AllowedValues = allowedValues
             };
+        }
+
+        private List<string> ParseAllowedValues(string description)
+        {
+            var allowedValuesRegex = new Regex("Allowed values: ([^\\.]+).");
+            var match = allowedValuesRegex.Match(description);
+            if (!match.Success) return new List<string>();
+            string strAllowedValues = match.Groups[1].Value;
+            return strAllowedValues.Split(',')
+                .Select(i => i.Trim(',', ' '))
+                .ToList();
         }
 
         private (string LongName, string ShortName) GetNames(string name)

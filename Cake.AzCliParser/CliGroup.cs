@@ -14,11 +14,19 @@ namespace Cake.AzCliParser
         public List<CliGroup> Subgroups { get; set; }
         public List<CliCommand> Commands { get; set; }
         public bool IsPreview { get; set; }
+        public string Parents { get; set; }
+
+        public void Merge(CliGroup fullGroup)
+        {
+            Subgroups = fullGroup.Subgroups;
+            Commands = fullGroup.Commands;
+        }
     }
 
     public class CliCommand
     {
         public string Name { get; set; }
+        public string Parents { get; set; }
         public string ShortDescription { get; set; }
         public List<CliArgument> Arguments { get; set; }
         public bool IsPreview { get; set; }
@@ -43,5 +51,7 @@ namespace Cake.AzCliParser
         public string ShortName { get; set; }
         public string Description { get; set; }
         public bool Required { get; set; }
+        public bool InPreview { get; set; }
+        public List<string> AllowedValues { get; set; }
     }
 }

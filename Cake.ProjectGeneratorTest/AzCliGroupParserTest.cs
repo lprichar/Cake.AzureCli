@@ -41,7 +41,7 @@ namespace Cake.ProjectGenerator.Test
             };
 
             // ACT
-            var cliGroup = azCliParserService.ParseCliGroup(parsedPage);
+            var cliGroup = azCliParserService.ParsePage(parsedPage);
 
             // ASSERT
             cliGroup.Name.ShouldBe("az");
@@ -90,7 +90,7 @@ namespace Cake.ProjectGenerator.Test
             };
 
             // ACT
-            var cliGroup = azCliParserService.ParseCliGroup(parsedPage);
+            var cliGroup = azCliParserService.ParsePage(parsedPage);
 
             // ASSERT
             cliGroup.Name.ShouldBe("az aks");

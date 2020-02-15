@@ -3,29 +3,62 @@ using System.Text.Json;
 
 namespace Cake.AzCliParser
 {
+    public class AzCliParser
+    {
+        private CommandExecutor _commandExecutor;
+        private PageParser _pageParser;
+        private AzCliGroupParser _groupParser;
+        private AzCliCommandParser _commandParser;
+
+        public AzCliParser()
+        {
+            _commandExecutor = new CommandExecutor();
+            _pageParser = new PageParser();
+            _groupParser = new AzCliGroupParser();
+            _commandParser = new AzCliCommandParser();
+        }
+
+        public CliProgram ParseRoot()
+        {
+            var azHelpOutput = _commandExecutor.ExecuteCommand("az --help");
+            var parsedPage = _pageParser.ParsePage(azHelpOutput);
+            var cliGroup = _groupParser.ParsePage(parsedPage);
+            ParseGroup("az", cliGroup);
+            return new CliProgram
+            {
+                RootCommand = cliGroup,
+            };
+        }
+
+        private void ParseGroup(string parents, CliGroup cliGroup)
+        {
+            foreach (var slimCommand in cliGroup.Commands)
+            {
+                var commandOutput = _commandExecutor.ExecuteCommand($"{parents} {slimCommand.Name} --help");
+                var commandPage = _pageParser.ParsePage(commandOutput);
+                var fullCommand = _commandParser.ParsePage(commandPage);
+                slimCommand.Merge(fullCommand);
+                slimCommand.Parents = parents;
+            }
+
+            foreach (var slimSubgroup in cliGroup.Subgroups)
+            {
+                var commandOutput = _commandExecutor.ExecuteCommand($"{parents} {slimSubgroup.Name} --help");
+                var page = _pageParser.ParsePage(commandOutput);
+                var fullGroup = _groupParser.ParsePage(page);
+                slimSubgroup.Merge(fullGroup);
+                slimSubgroup.Parents = parents;
+                ParseGroup(parents + " " + slimSubgroup.Name, slimSubgroup);
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            var commandExecutor = new CommandExecutor();
-            var pageParser = new PageParser();
-            var groupParser = new AzCliGroupParser();
-            var commandParser = new AzCliCommandParser();
-
-            var azHelpOutput = commandExecutor.ExecuteCommand("az --help");
-            var parsedPage = pageParser.ParsePage(azHelpOutput);
-            var cliGroup = groupParser.ParseCliGroup(parsedPage);
-            foreach (var command in cliGroup.Commands)
-            {
-                var commandOutput = commandExecutor.ExecuteCommand($"az {command.Name} --help");
-                var commandPage = pageParser.ParsePage(commandOutput);
-                var cliCommand = commandParser.ParseCliCommand(commandPage);
-                command.Merge(cliCommand);
-            }
-            var cliProgram = new CliProgram
-            {
-                RootCommand = cliGroup,
-            };
+            var azCliParser = new AzCliParser();
+            var cliProgram = azCliParser.ParseRoot();
             WriteOutCliProgram(cliProgram);
         }
 
