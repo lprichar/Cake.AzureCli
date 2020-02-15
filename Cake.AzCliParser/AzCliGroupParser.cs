@@ -43,7 +43,7 @@ namespace Cake.AzCliParser
             return new CliCommand
             {
                 Name = name,
-                Description = nv.Value,
+                ShortDescription = nv.Value,
                 IsPreview = isPreview
             };
         }

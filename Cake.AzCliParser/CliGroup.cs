@@ -19,9 +19,22 @@ namespace Cake.AzCliParser
     public class CliCommand
     {
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string ShortDescription { get; set; }
         public List<CliArgument> Arguments { get; set; }
         public bool IsPreview { get; set; }
+        public List<CliExample> Examples { get; set; }
+
+        public void Merge(CliCommand command)
+        {
+            Arguments = command.Arguments;
+            Examples = command.Examples;
+        }
+    }
+
+    public class CliExample
+    {
+        public string Description { get; set; }
+        public string Example { get; set; }
     }
 
     public class CliArgument

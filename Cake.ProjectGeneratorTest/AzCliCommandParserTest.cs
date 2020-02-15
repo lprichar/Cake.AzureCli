@@ -56,17 +56,29 @@ namespace Cake.ProjectGenerator.Test
 
             // ASSERT
             cliCommand.Name.ShouldBe("az login");
-            cliCommand.Description.ShouldBe("Log in to Azure");
-            cliCommand.Arguments.Count.ShouldBe(2);
+            cliCommand.ShortDescription.ShouldBe("Log in to Azure");
+            cliCommand.Arguments.Count.ShouldBe(3);
             var firstArgument = cliCommand.Arguments[0];
             firstArgument.Name.ShouldBe("--allow-no-subscriptions");
+            firstArgument.ShortName.ShouldBeNull();
             firstArgument.Description.ShouldBe("Support access tenants without subscriptions.");
             firstArgument.Required.ShouldBeFalse();
+
             var secondArgument = cliCommand.Arguments[1];
             secondArgument.Name.ShouldBe("--password");
             secondArgument.ShortName.ShouldBe("-p");
             secondArgument.Description.ShouldBe("Credentials like user password");
             secondArgument.Required.ShouldBeTrue();
+
+            var thirdArgument = cliCommand.Arguments[2];
+            thirdArgument.Name.ShouldBe("--debug");
+            thirdArgument.ShortName.ShouldBeNull();
+            thirdArgument.Description.ShouldBe("Increase logging verbosity to show all debug logs.");
+            thirdArgument.Required.ShouldBeFalse();
+
+            var example = cliCommand.Examples.ShouldHaveSingleItem();
+            example.Description.ShouldBe("Install the virtual Kubelet using a specific service principal in a specific resource group.");
+            example.Example.ShouldBe("az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup");
         }
 
     }

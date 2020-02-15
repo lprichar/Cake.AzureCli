@@ -54,11 +54,11 @@ namespace Cake.ProjectGenerator.Test
             cliGroup.Commands.Count.ShouldBe(2);
             var firstCommand = cliGroup.Commands[0];
             firstCommand.Name.ShouldBe("browse");
-            firstCommand.Description.ShouldBe("Show the dashboard for a Kubernetes cluster in a web browser.");
+            firstCommand.ShortDescription.ShouldBe("Show the dashboard for a Kubernetes cluster in a web browser.");
             firstCommand.IsPreview.ShouldBeFalse();
             var secondCommand = cliGroup.Commands[1];
             secondCommand.Name.ShouldBe("install-connector");
-            secondCommand.Description.ShouldBe("Install the ACI Connector on a managed Kubernetes cluster.");
+            secondCommand.ShortDescription.ShouldBe("Install the ACI Connector on a managed Kubernetes cluster.");
             secondCommand.IsPreview.ShouldBeTrue();
         }
 
