@@ -21,7 +21,7 @@ namespace Cake.AzCliParser
         public string Name { get; set; }
         public string Description { get; set; }
         public List<CliArgument> Arguments { get; set; }
-        public bool Preview { get; set; }
+        public bool IsPreview { get; set; }
     }
 
     public class CliArgument

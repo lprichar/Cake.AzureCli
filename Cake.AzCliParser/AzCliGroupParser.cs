@@ -11,12 +11,40 @@ namespace Cake.AzCliParser
             Debug.Assert(parsedPage.Headers[0].Title == "Group");
 
             var subgroups = GetSubgroups(parsedPage);
+            var commands = GetCommands(parsedPage);
 
             return new CliGroup
             {
                 Name = parsedPage.Headers[0].NameValues[0].Name,
                 Description = parsedPage.Headers[0].NameValues[0].Value,
-                Subgroups = subgroups
+                Subgroups = subgroups,
+                Commands = commands
+            };
+        }
+
+        private List<CliCommand> GetCommands(ParsedPage parsedPage)
+        {
+            var commandsHeader = parsedPage.Headers.FirstOrDefault(i => i.Title == "Commands:");
+            if (commandsHeader == null) return new List<CliCommand>();
+
+            return commandsHeader.NameValues
+                .Select(MakeCommand)
+                .ToList();
+        }
+
+        private static CliCommand MakeCommand(NameValue nv)
+        {
+            var name = nv.Name;
+            var isPreview = name.Contains("[Preview]");
+            if (isPreview)
+            {
+                name = name.Replace("[Preview]", "").Trim();
+            }
+            return new CliCommand
+            {
+                Name = name,
+                Description = nv.Value,
+                IsPreview = isPreview
             };
         }
 
@@ -28,7 +56,8 @@ namespace Cake.AzCliParser
                 .Select(nv => new CliGroup()
                 {
                     Name = nv.Name,
-                    Description = nv.Value
+                    Description = nv.Value,
+                    Commands = new List<CliCommand>()
                 })
                 .ToList();
         }

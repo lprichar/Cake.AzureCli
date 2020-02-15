@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Cake.AzCliParser;
 using NUnit.Framework;
 using Shouldly;
+using System.Collections.Generic;
 
 namespace Cake.ProjectGenerator.Test
 {
@@ -50,15 +50,16 @@ namespace Cake.ProjectGenerator.Test
             var subGroup = cliGroup.Subgroups.ShouldHaveSingleItem();
             subGroup.Name.ShouldBe("nodepool");
             subGroup.Description.ShouldBe("Commands to manage node pools in Kubernetes kubernetes cluster.");
-            subGroup.Commands.Count.ShouldBe(2);
-            var firstCommand = subGroup.Commands[0];
+            subGroup.Commands.Count.ShouldBe(0);
+            cliGroup.Commands.Count.ShouldBe(2);
+            var firstCommand = cliGroup.Commands[0];
             firstCommand.Name.ShouldBe("browse");
             firstCommand.Description.ShouldBe("Show the dashboard for a Kubernetes cluster in a web browser.");
-            firstCommand.Preview.ShouldBeFalse();
-            var secondCommand = subGroup.Commands[1];
+            firstCommand.IsPreview.ShouldBeFalse();
+            var secondCommand = cliGroup.Commands[1];
             secondCommand.Name.ShouldBe("install-connector");
             secondCommand.Description.ShouldBe("Install the ACI Connector on a managed Kubernetes cluster.");
-            secondCommand.Preview.ShouldBeTrue();
+            secondCommand.IsPreview.ShouldBeTrue();
         }
 
     }
