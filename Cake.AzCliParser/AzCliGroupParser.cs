@@ -9,9 +9,9 @@ namespace Cake.AzCliParser
         private static readonly List<string> ExpectedSections = new List<string> { "Group", "Commands:", "Subgroups:" };
         private readonly Logger _logger;
 
-        public AzCliGroupParser()
+        public AzCliGroupParser(Logger logger)
         {
-            _logger = new Logger();
+            _logger = logger;
         }
 
         public CliGroup ParsePage(ParsedPage parsedPage)

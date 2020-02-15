@@ -17,7 +17,7 @@ namespace Cake.ProjectGenerator.Test
                 var pageParser = new PageParser();
 
                 // ACT
-                var parsedPage = pageParser.ParsePage(azAksInstallConnector);
+                var parsedPage = pageParser.ParseString(azAksInstallConnector);
 
                 // ASSERT
                 parsedPage.Headers[0].Title.ShouldBe("Command");
@@ -34,7 +34,7 @@ namespace Cake.ProjectGenerator.Test
                 var pageParser = new PageParser();
 
                 // ACT
-                var parsedPage = pageParser.ParsePage(azLogin);
+                var parsedPage = pageParser.ParseString(azLogin);
 
                 // ASSERT
                 parsedPage.Headers.Count.ShouldBe(6);

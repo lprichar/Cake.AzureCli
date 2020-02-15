@@ -4,11 +4,11 @@ namespace Cake.AzCliParser
 {
     public class CommandExecutor
     {
-        private Logger _logger;
+        private readonly Logger _logger;
 
-        public CommandExecutor()
+        public CommandExecutor(Logger logger)
         {
-            _logger = new Logger();
+            _logger = logger;
         }
 
         public string ExecuteCommand(string command)
@@ -23,15 +23,22 @@ namespace Cake.AzCliParser
                     WindowStyle = ProcessWindowStyle.Hidden,
                     UseShellExecute = false,
                     CreateNoWindow = true,
-                    RedirectStandardOutput = true
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
 
             _logger.Debug(command);
             process.Start();
 
-            process.WaitForExit(100);
+            process.WaitForExit(50);
             var helpOutput = process.StandardOutput.ReadToEnd();
+            var standardError = process.StandardError.ReadToEnd();
+            if (!string.IsNullOrWhiteSpace(standardError))
+            {
+                _logger.Error(standardError);
+            }
+
             return helpOutput;
         }
 

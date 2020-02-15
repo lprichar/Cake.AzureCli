@@ -6,7 +6,7 @@ namespace Cake.AzCliParser
 {
     public class PageParser
     {
-        public ParsedPage ParsePage(string helpPage)
+        public ParsedPage ParseString(string helpPage)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(helpPage));
 
