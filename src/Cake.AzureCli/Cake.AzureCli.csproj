@@ -22,6 +22,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AzAliases.cs</LastGenOutput>
     </None>
+    <None Update="AzSettings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AzSettings.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +37,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AzAliases.tt</DependentUpon>
+    </Compile>
+    <Compile Update="AzSettings.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AzSettings.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

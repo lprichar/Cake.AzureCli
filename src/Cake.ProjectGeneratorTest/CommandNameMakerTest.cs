@@ -8,6 +8,19 @@ namespace Cake.AzCliParser.Test
     public class CommandNameMakerTest
     {
         [Test]
+        public void GivenArgumentStartsWithNumber_WhenMakeName_ItIsPrefixedWithA()
+        {
+            var commandNameMaker = new CommandNameMaker();
+            var cliArgument = new CliArgument
+            {
+                Name = "404Document"
+            };
+            var makeName = commandNameMaker.MakeName(cliArgument);
+            // for lack of a better solution
+            makeName.ShouldBe("A404Document");
+        }
+
+        [Test]
         public void GivenCliCommandWithDashesInName_WhenMakeName_ItIsTitleCaseWithNoDashes()
         {
             var commandNameMaker = new CommandNameMaker();
