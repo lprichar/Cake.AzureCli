@@ -7,6 +7,43 @@ namespace Cake.AzCliParser.Test
     public class AzCliGroupParserTest
     {
         [Test]
+        public void DeprecatedCommand()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Group")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az vm image", "Information on available virtual machine images.")
+                        }
+                    },
+                    new PageHeader("Commands:")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("accept-terms [Deprecated]", "Accept Azure Marketplace term so that the image can be used to create VMs.")
+                        }
+                    }
+
+                }
+            };
+            var fakeLogger = new FakeLogger();
+
+            // ACT
+            var azCliGroupParser = new AzCliGroupParser(fakeLogger);
+            var cliGroup = azCliGroupParser.ParsePage(parsedPage);
+
+            // ASSERT
+            var command = cliGroup.Commands.ShouldHaveSingleItem();
+            command.Name.ShouldBe("accept-terms");
+            command.IsDeprecated.ShouldBeTrue();
+        }
+
+        [Test]
         public void LogUnexpectedSections()
         {
             // ARRANGE

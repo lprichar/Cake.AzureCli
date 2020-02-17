@@ -10,6 +10,7 @@ namespace Cake.AzCliCore
         public List<CliArgument> Arguments { get; set; }
         public bool IsPreview { get; set; }
         public List<CliExample> Examples { get; set; }
+        public bool IsDeprecated { get; set; }
 
         public void Merge(CliCommand command)
         {

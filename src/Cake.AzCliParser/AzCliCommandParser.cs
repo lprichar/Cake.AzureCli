@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cake.AzCliCore;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;

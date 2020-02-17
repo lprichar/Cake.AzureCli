@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cake.AzCliCore;
+using System;
 
 namespace Cake.AzCliParser
 {

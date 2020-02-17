@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cake.AzCliCore;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -56,17 +57,15 @@ namespace Cake.AzCliParser
                 .ToList();
         }
 
-        private static CliCommand MakeCommand(NameValue nv)
+        private CliCommand MakeCommand(NameValue nv)
         {
             var name = nv.Name;
-            var isPreview = name.Contains("[Preview]");
-            if (isPreview)
-            {
-                name = name.Replace("[Preview]", "").Trim();
-            }
+            var isPreview = ParseTag(ref name, "[Preview]");
+            var isDeprecated = ParseTag(ref name, "[Deprecated]");
             return new CliCommand
             {
                 Name = name,
+                IsDeprecated = isDeprecated,
                 ShortDescription = nv.Value,
                 IsPreview = isPreview
             };

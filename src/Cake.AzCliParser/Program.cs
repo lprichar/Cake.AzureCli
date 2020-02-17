@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Cake.AzCliCore;
+using System.IO;
 using System.Text.Json;
 
 namespace Cake.AzCliParser

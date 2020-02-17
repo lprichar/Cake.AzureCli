@@ -1,6 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="Newtonsoft.Json" #>
+<#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
 <#@ assembly name="$(SolutionDir)\Cake.AzCliCore\bin\Debug\netstandard2.0\Cake.AzCliCore.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -34,22 +35,50 @@ namespace Cake.AzureCli
                 baseCommand += $" {paramName}={setting}";
             }
         }
-        <# 
-        if (true) { 
-            Write("private static void " + GetRootCommandName() + "() { }");
-        } 
+
+<# 
+        var allCliCommands = GetAllCliCommands();
+
+        PushIndent("        ");
+        foreach (var cliCommand in allCliCommands) {
+            WriteLine("/// <summary>");
+            WriteLine($"/// {cliCommand.Parents} {cliCommand.Name}");
+            WriteLine("/// </summary>");
+            WriteLine("/// <returns></returns>");
+            WriteLine("[CakeMethodAlias]");
+            WriteLine($"public static void {CommandNameMaker.MakeName(cliCommand)}(this ICakeContext context) {{");
+            WriteLine($"}}");
+            WriteLine("");
+        }
+        PopIndent();
         #>
     }
 }
 
 <#+ 
-private string GetRootCommandName() {
+private CommandNameMaker CommandNameMaker = new CommandNameMaker();
+
+private List<CliCommand> GetAllCliCommands() {
+    var cliProgram = GetAzCliHelpOutputJson();
+    var cliCommands = new List<CliCommand>();
+    FindAllCliCommands(cliProgram.RootCommand, cliCommands);
+    return cliCommands;
+}
+
+private void FindAllCliCommands(CliGroup cliGroup, List<CliCommand> cliCommands) {
+    foreach (var subGroup in cliGroup.Subgroups) {
+        FindAllCliCommands(subGroup, cliCommands);
+    };
+    cliCommands.AddRange(cliGroup.Commands);
+}
+
+private CliProgram GetAzCliHelpOutputJson() {
     var templateFile = new FileInfo(Host.TemplateFile);
     var currentFolder = templateFile.Directory.FullName;
     var azCliHelpOutputFileLocation = Path.Combine(currentFolder, "AzCliHelpOutput.json");
     var azCliHelpOutputJson = File.ReadAllText(azCliHelpOutputFileLocation);
     var cliProgram = JsonConvert.DeserializeObject<CliProgram>(azCliHelpOutputJson);
-    return cliProgram.RootCommand.Name;
+    return cliProgram;
 }
 
 #>
