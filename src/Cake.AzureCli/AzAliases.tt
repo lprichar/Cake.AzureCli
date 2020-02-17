@@ -1,0 +1,55 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="Newtonsoft.Json" #>
+<#@ assembly name="$(SolutionDir)\Cake.AzCliCore\bin\Debug\netstandard2.0\Cake.AzCliCore.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Cake.AzCliCore" #>
+<#@ output extension=".cs" #>
+
+using Cake.Core;
+using Cake.Core.Annotations;
+using Cake.Core.IO;
+
+namespace Cake.AzureCli
+{
+    [CakeAliasCategory("Az")]
+    public static class AzAliases
+    {
+        private static void AppendArguments(ref string baseCommand, ProcessArgumentBuilder arguments)
+        {
+            if (arguments != null)
+            {
+                baseCommand += " " + arguments.Render().TrimEnd();
+            }
+        }
+
+        private static void AppendIfNonNull(ref string baseCommand, string paramName, string setting)
+        {
+            if (!string.IsNullOrEmpty(setting))
+            {
+                baseCommand += $" {paramName}={setting}";
+            }
+        }
+        <# 
+        if (true) { 
+            Write("private static void " + GetRootCommandName() + "() { }");
+        } 
+        #>
+    }
+}
+
+<#+ 
+private string GetRootCommandName() {
+    var templateFile = new FileInfo(Host.TemplateFile);
+    var currentFolder = templateFile.Directory.FullName;
+    var azCliHelpOutputFileLocation = Path.Combine(currentFolder, "AzCliHelpOutput.json");
+    var azCliHelpOutputJson = File.ReadAllText(azCliHelpOutputFileLocation);
+    var cliProgram = JsonConvert.DeserializeObject<CliProgram>(azCliHelpOutputJson);
+    return cliProgram.RootCommand.Name;
+}
+
+#>

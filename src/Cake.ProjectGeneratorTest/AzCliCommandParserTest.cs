@@ -1,9 +1,8 @@
-using Cake.AzCliParser;
 using NUnit.Framework;
 using Shouldly;
 using System.Collections.Generic;
 
-namespace Cake.ProjectGenerator.Test
+namespace Cake.AzCliParser.Test
 {
     public class AzCliCommandParserTest
     {

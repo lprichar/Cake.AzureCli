@@ -5,8 +5,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="AzAliases.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AzAliases.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.37.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AzAliases.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AzAliases.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AzAliases.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AzAliases.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
