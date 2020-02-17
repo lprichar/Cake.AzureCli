@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cake.AzCliCore\Cake.AzCliCore.csproj" />
+    <ProjectReference Include="..\Cake.AzCliCore\Cake.AzCli.Core.csproj" />
   </ItemGroup>
 
 </Project>

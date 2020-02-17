@@ -1,4 +1,4 @@
-﻿using Cake.AzCliCore;
+﻿using Cake.AzCli.Core.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

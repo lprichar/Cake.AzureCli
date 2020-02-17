@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Cake.AzCli.Core.Models;
+using System.Collections.Generic;
 
-namespace Cake.AzCliCore
+namespace Cake.AzCli.Core.Helpers
 {
     public class CommandFinder
     {

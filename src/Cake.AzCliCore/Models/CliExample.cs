@@ -1,4 +1,4 @@
-﻿namespace Cake.AzCliCore
+﻿namespace Cake.AzCli.Core.Models
 {
     public class CliExample
     {

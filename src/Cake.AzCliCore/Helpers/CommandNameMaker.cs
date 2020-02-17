@@ -1,6 +1,7 @@
-﻿using System.Globalization;
+﻿using Cake.AzCli.Core.Models;
+using System.Globalization;
 
-namespace Cake.AzCliCore
+namespace Cake.AzCli.Core.Helpers
 {
     public class CommandNameMaker
     {

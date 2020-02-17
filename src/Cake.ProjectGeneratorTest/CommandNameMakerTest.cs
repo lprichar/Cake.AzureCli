@@ -1,4 +1,5 @@
-﻿using Cake.AzCliCore;
+﻿using Cake.AzCli.Core.Helpers;
+using Cake.AzCli.Core.Models;
 using NUnit.Framework;
 using Shouldly;
 

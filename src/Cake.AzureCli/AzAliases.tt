@@ -2,13 +2,14 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="Newtonsoft.Json" #>
 <#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
-<#@ assembly name="$(SolutionDir)\Cake.AzCliCore\bin\Debug\netstandard2.0\Cake.AzCliCore.dll" #>
+<#@ assembly name="$(SolutionDir)\Cake.AzCliCore\bin\Debug\netstandard2.0\Cake.AzCli.Core.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="Newtonsoft.Json" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="Cake.AzCliCore" #>
+<#@ import namespace="Cake.AzCli.Core.Models" #>
+<#@ import namespace="Cake.AzCli.Core.Helpers" #>
 <#@ output extension=".cs" #>
 
 using Cake.Core;

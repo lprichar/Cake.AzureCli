@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cake.AzCliCore
+namespace Cake.AzCli.Core.Models
 {
     public class CliArgument
     {

@@ -1,4 +1,4 @@
-﻿using Cake.AzCliCore;
+﻿using Cake.AzCli.Core.Models;
 using System;
 
 namespace Cake.AzCliParser
