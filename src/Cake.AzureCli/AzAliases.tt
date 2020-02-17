@@ -62,6 +62,8 @@ namespace Cake.AzureCli
             //    WriteLine("///");
             //}
             WriteLine("/// </summary>");
+            WriteLine("/// <param name=\"context\">The context.</param>");
+            WriteLine("/// <param name=\"settings\">The settings.</param>");
             WriteLine("[CakeMethodAlias]");
             WriteLine($"[CakeAliasCategory(\"{category}\")]");
             WriteLine($"public static dynamic {cliCommandName}(this ICakeContext context, {cliCommandName}Settings settings) {{");

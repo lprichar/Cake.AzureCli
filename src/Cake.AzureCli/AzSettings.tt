@@ -34,7 +34,11 @@ namespace Cake.AzureCli
         PushIndent("    ");
         foreach (var argument in cliCommand.Arguments) {
             var argName = CommandNameMaker.MakeName(argument);
+            WriteLine("/// <summary>");
+            WriteLine($"/// {argument.Description}");
+            WriteLine("/// </summary>");
             WriteLine($"public string {argName} {{ get; set; }}");
+            WriteLine("");
         }
         PopIndent();
         WriteLine("}");
