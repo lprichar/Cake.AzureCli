@@ -37,12 +37,21 @@ namespace Cake.AzureCli
             }
         }
 
+        private static dynamic Execute(string baseCommand, AzSettingsBase settings, ICakeContext context)
+        {
+            AppendArguments(ref baseCommand, settings.Arguments);
+            var commandExecutor = new CommandExecutor(context);
+            return commandExecutor.ExecuteCommand(baseCommand);
+        }
+
 <# 
         var cliProgram = GetAzCliHelpOutputJson();
         var allCliCommands = CommandFinder.GetAllCliCommands(cliProgram);
 
         PushIndent("        ");
         foreach (var cliCommand in allCliCommands) {
+            var cliCommandName = CommandNameMaker.MakeName(cliCommand);
+
             WriteLine("/// <summary>");
             WriteLine($"/// \"{cliCommand.Parents} {cliCommand.Name}\".");
             WriteLine($"/// {cliCommand.ShortDescription}");
@@ -52,9 +61,16 @@ namespace Cake.AzureCli
             //    WriteLine("///");
             //}
             WriteLine("/// </summary>");
-            WriteLine("/// <returns></returns>");
             WriteLine("[CakeMethodAlias]");
-            WriteLine($"public static void {CommandNameMaker.MakeName(cliCommand)}(this ICakeContext context) {{");
+            WriteLine($"public static dynamic {cliCommandName}(this ICakeContext context, {cliCommandName}Settings settings) {{");
+            PushIndent("    ");
+            WriteLine($"var baseCommand = \"{cliCommand.Parents} {cliCommand.Name}\";");
+            foreach (var argument in cliCommand.Arguments) {
+                var argName = CommandNameMaker.MakeName(argument);
+                WriteLine($"AppendIfNonNull(ref baseCommand, \"{argument.Name}\", settings.{argName});");
+            }
+            WriteLine("return Execute(baseCommand, settings, context);");
+            PopIndent();
             WriteLine($"}}");
             WriteLine("");
         }
