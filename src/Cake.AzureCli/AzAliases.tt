@@ -37,7 +37,8 @@ namespace Cake.AzureCli
         }
 
 <# 
-        var allCliCommands = GetAllCliCommands();
+        var cliProgram = GetAzCliHelpOutputJson();
+        var allCliCommands = CommandFinder.GetAllCliCommands(cliProgram);
 
         PushIndent("        ");
         foreach (var cliCommand in allCliCommands) {
@@ -57,20 +58,7 @@ namespace Cake.AzureCli
 
 <#+ 
 private CommandNameMaker CommandNameMaker = new CommandNameMaker();
-
-private List<CliCommand> GetAllCliCommands() {
-    var cliProgram = GetAzCliHelpOutputJson();
-    var cliCommands = new List<CliCommand>();
-    FindAllCliCommands(cliProgram.RootCommand, cliCommands);
-    return cliCommands;
-}
-
-private void FindAllCliCommands(CliGroup cliGroup, List<CliCommand> cliCommands) {
-    foreach (var subGroup in cliGroup.Subgroups) {
-        FindAllCliCommands(subGroup, cliCommands);
-    };
-    cliCommands.AddRange(cliGroup.Commands);
-}
+private CommandFinder CommandFinder = new CommandFinder();
 
 private CliProgram GetAzCliHelpOutputJson() {
     var templateFile = new FileInfo(Host.TemplateFile);
