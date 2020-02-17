@@ -52,6 +52,9 @@ namespace Cake.AzCliParser
                 }
             }
 
+            // remove all commands that had no details (e.g. az apim apply-network-updates
+            cliGroup.Commands.RemoveAll(c => c.Parents == null);
+
             foreach (var slimSubgroup in cliGroup.Subgroups)
             {
                 var commandOutput = _commandExecutor.ExecuteCommand($"{parents} {slimSubgroup.Name} --help");

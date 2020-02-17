@@ -44,7 +44,13 @@ namespace Cake.AzureCli
         PushIndent("        ");
         foreach (var cliCommand in allCliCommands) {
             WriteLine("/// <summary>");
-            WriteLine($"/// {cliCommand.Parents} {cliCommand.Name}");
+            WriteLine($"/// \"{cliCommand.Parents} {cliCommand.Name}\".");
+            WriteLine($"/// {cliCommand.ShortDescription}");
+            //foreach (var example in cliCommand.Examples) {
+            //    WriteLine($"/// {example.Description}");
+            //    WriteLine($"/// `{example.Example}`");
+            //    WriteLine("///");
+            //}
             WriteLine("/// </summary>");
             WriteLine("/// <returns></returns>");
             WriteLine("[CakeMethodAlias]");

@@ -1,5 +1,6 @@
 ﻿using Cake.AzCli.Core.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cake.AzCli.Core.Helpers
 {
@@ -9,7 +10,7 @@ namespace Cake.AzCli.Core.Helpers
         {
             var cliCommands = new List<CliCommand>();
             GetAllCliCommands(cliProgram.RootCommand, cliCommands);
-            return cliCommands;
+            return cliCommands.OrderBy(i => i.Parents).ThenBy(i => i.Name).ToList();
         }
 
         private void GetAllCliCommands(CliGroup cliGroup, List<CliCommand> cliCommands)
