@@ -6,6 +6,11 @@ namespace Cake.AzCli.Core.Helpers
 {
     public class CommandNameMaker
     {
+        public string MakeCategory(CliCommand cliCommand)
+        {
+            return MakeName(cliCommand.Parents);
+        }
+
         public string MakeName(CliArgument argument)
         {
             if (argument?.Name == null) return null;

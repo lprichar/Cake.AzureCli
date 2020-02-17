@@ -18,7 +18,7 @@ using Cake.Core.IO;
 
 namespace Cake.AzureCli
 {
-    [CakeAliasCategory("Az")]
+    [CakeAliasCategory("Azure")]
     public static class AzAliases
     {
         private static void AppendArguments(ref string baseCommand, ProcessArgumentBuilder arguments)
@@ -51,6 +51,7 @@ namespace Cake.AzureCli
         PushIndent("        ");
         foreach (var cliCommand in allCliCommands) {
             var cliCommandName = CommandNameMaker.MakeName(cliCommand);
+            var category = CommandNameMaker.MakeCategory(cliCommand);
 
             WriteLine("/// <summary>");
             WriteLine($"/// \"{cliCommand.Parents} {cliCommand.Name}\".");
@@ -62,6 +63,7 @@ namespace Cake.AzureCli
             //}
             WriteLine("/// </summary>");
             WriteLine("[CakeMethodAlias]");
+            WriteLine($"[CakeAliasCategory(\"{category}\")]");
             WriteLine($"public static dynamic {cliCommandName}(this ICakeContext context, {cliCommandName}Settings settings) {{");
             PushIndent("    ");
             WriteLine($"var baseCommand = \"{cliCommand.Parents} {cliCommand.Name}\";");
