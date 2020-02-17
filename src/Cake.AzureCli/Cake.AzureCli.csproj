@@ -2,9 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Lee Richardson</Authors>
+    <Company />
+    <Description>A Cake plugin that provides strongly typed, fully intellisense documented, and cross platform access
+to all 2,833 Azure CLI commands and their 32,669 individual settings.</Description>
+    <PackageProjectUrl>https://github.com/lprichar/Cake.AzureCli</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/lprichar/Cake.AzureCli</RepositoryUrl>
+    <Copyright>Copyright 2020 (c). All rights reserved.</Copyright>
+    <PackageTags>Cake, Script, Azure</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="AzAliases.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

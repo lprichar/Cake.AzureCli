@@ -1,4 +1,5 @@
 #reference "../src/Cake.AzureCli/bin/Debug/netstandard2.0/Cake.AzureCli.dll"
+//#addin "nuget:?package=Cake.AzureCli&version=1.0.0"
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -31,7 +32,7 @@ Task("Login")
 
 Task("Default")
 .Does(() => {
-   Information("try: build.ps1 -target \"Login\" --username=\"user@address.com\" -password=myPassword -subscription=5d544c5d-b9b6-44b5-9361-e3f72839badf");
+   Information("try: build.ps1 -target \"Login\" --username=\"user@address.com\" -password=myPassword -subscription=subscriptionid");
 });
 
 RunTarget(target);

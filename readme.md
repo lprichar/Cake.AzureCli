@@ -1,5 +1,5 @@
 # Cake.Azure
-A [Cake](http://cakebuild.net) plugin that provides strongly typed and fully intellisense documented access
+A [Cake](http://cakebuild.net) plugin that provides strongly typed, fully intellisense documented, and cross platform access
 to all 2,833 Azure CLI commands and their 32,669 individual settings.
 
 # Implementation Details
@@ -15,7 +15,9 @@ The Cake.AzureCli project contains two T4 templates that generate the actual Cak
 
 # Usage
 
-Note, I haven't published this to nuget yet
+Reference with:
+
+`#addin "nuget:?package=Cake.AzureCli&version=1.0.0"`
 
 All Az commands are accessed via Pascal case e.g. `az login` is accessed like `AzLogin(new AzLoginSettings{...})`. 
 
