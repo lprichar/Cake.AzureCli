@@ -15,15 +15,14 @@ to all 2,833 Azure CLI commands and their 32,669 individual settings.</Descripti
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\dev\GitHub\Cake.AzureCli\src\Cake.AzureCli\Cake.AzureCli.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\..\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>
-    <None Include="AzAliases.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AzAliases.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -33,9 +32,9 @@ to all 2,833 Azure CLI commands and their 32,669 individual settings.</Descripti
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="AzAliases.tt">
+    <None Update="Az.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AzAliases.cs</LastGenOutput>
+      <LastGenOutput>Az.cs</LastGenOutput>
     </None>
     <None Update="AzSettings.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -48,10 +47,10 @@ to all 2,833 Azure CLI commands and their 32,669 individual settings.</Descripti
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AzAliases.cs">
+    <Compile Update="Az.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AzAliases.tt</DependentUpon>
+      <DependentUpon>Az.tt</DependentUpon>
     </Compile>
     <Compile Update="AzSettings.cs">
       <DesignTime>True</DesignTime>

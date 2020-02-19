@@ -15,7 +15,7 @@ Task("Login")
    .Does(() =>
 {
    // "'az login' is accessed via AzLogin. Arguments can be customized if necessary with as ProcessArgumentBuilder
-   dynamic result = AzLogin(new AzLoginSettings {
+   dynamic result = Az().Login(new LoginSettings {
       Username = username,
       Arguments = new ProcessArgumentBuilder()
          .Append("--password").AppendSecret(password)
@@ -25,7 +25,7 @@ Task("Login")
    Information("1st tenant = " + result[0].tenantId);
 
    // 'az account set' is accessed with AzAccountSet
-   AzAccountSet(new AzAccountSetSettings {
+   Az().AccountSet(new AccountSetSettings {
       Subscription = subscription
    });
 });

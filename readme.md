@@ -19,11 +19,11 @@ Reference with:
 
 `#addin "nuget:?package=Cake.AzureCli&version=1.0.0"`
 
-All Az commands are accessed via Pascal case e.g. `az login` is accessed like `AzLogin(new AzLoginSettings{...})`. 
+All Az commands are accessed with `Az()` and the remainder of the command in Pascal case e.g. `az account set` is accessed like `Az().AccountSet(new AccountSetSettings{...})`. 
 
 ```csharp
 // "'az login' is accessed via AzLogin. Arguments can be customized if necessary with as ProcessArgumentBuilder
-dynamic result = AzLogin(new AzLoginSettings {
+dynamic result = Az().Login(new LoginSettings {
    Username = username,
    Arguments = new ProcessArgumentBuilder()
       .Append("--password").AppendSecret(password)
@@ -33,29 +33,9 @@ dynamic result = AzLogin(new AzLoginSettings {
 Information("1st tenant = " + result[0].tenantId);
 
 // 'az account set' is accessed with AzAccountSet
-AzAccountSet(new AzAccountSetSettings {
+Az().AccountSet(new AccountSetSettings {
    Subscription = subscription
 });
 ```
 
 See /example/build.cake for sample dll reference usage.
-
-
-<!--
-```csharp
-#addin "nuget:?package=Microsoft.Rest.ClientRuntime&version=2.3.21"
-#addin "nuget:?package=Microsoft.Rest.ClientRuntime.Azure.Authentication&version=2.4.0"
-#addin "nuget:?package=Microsoft.IdentityModel.Clients.ActiveDirectory&version=4.3.0"
-#addin "nuget:?package=Microsoft.Azure.Management.ResourceManager&version=2.4.5-preview&prerelease"
-#addin "nuget:?package=Microsoft.Rest.ClientRuntime.Azure&version=3.3.19"
-#addin "nuget:?package=Cake.Azure&version=0.4.0"
-```
--->
-
-<!-- 
-## Aliases
-
-Please visit the Cake Documentation for a list of available aliases:
-
-[http://cakebuild.net/dsl/azure/](http://cakebuild.net/dsl/azure) 
--->

@@ -21,6 +21,7 @@ namespace Cake.AzCli.Core.Helpers
         {
             if (cliCommand?.Name == null) return null;
             var combined = cliCommand.Parents + " " + cliCommand.Name;
+            combined = combined.Substring(2);
             return MakeName(combined);
         }
 

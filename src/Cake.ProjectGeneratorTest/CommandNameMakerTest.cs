@@ -29,11 +29,11 @@ namespace Cake.AzCliParser.Test
                 Name = "get-access-token",
                 Parents = "az account"
             });
-            name.ShouldBe("AzAccountGetAccessToken");
+            name.ShouldBe("AccountGetAccessToken");
         }
 
         [Test]
-        public void GivenCliCommandWithDashesInParentNames_WhenMakeName_ItIsTitleCaseWithNoDashes()
+        public void GivenCliCommandWithDashesInParentNames_WhenMakeName_ItIsTitleCaseWithNoDashesMinusAz()
         {
             var commandNameMaker = new CommandNameMaker();
             var name = commandNameMaker.MakeName(new CliCommand
@@ -42,7 +42,7 @@ namespace Cake.AzCliParser.Test
                 Parents = "az account management-group subscription"
             });
 
-            name.ShouldBe("AzAccountManagementGroupSubscriptionAdd");
+            name.ShouldBe("AccountManagementGroupSubscriptionAdd");
         }
     }
 }
