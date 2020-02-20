@@ -1,5 +1,6 @@
 ﻿using Cake.Common.Diagnostics;
 using Cake.Core;
+using Cake.Core.IO;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -15,12 +16,12 @@ namespace Cake.AzureCli
             _context = context;
         }
 
-        public dynamic ExecuteCommand(string command)
+        public dynamic ExecuteCommand(ProcessArgumentBuilder processArgumentBuilder)
         {
-            var startInfo = GetCrossPlatStartInfo(command);
+            var startInfo = GetCrossPlatStartInfo(processArgumentBuilder.Render());
             using (var process = new Process { StartInfo = startInfo })
             {
-                _context.Debug("Executing: " + command);
+                _context.Debug("Executing: " + processArgumentBuilder.RenderSafe());
                 process.Start();
 
                 process.WaitForExit(10);

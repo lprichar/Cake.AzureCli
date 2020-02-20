@@ -1,3 +1,5 @@
+using Cake.Core;
+using Cake.Core.IO;
 using NUnit.Framework;
 using Shouldly;
 using System.Collections.Generic;
@@ -6,6 +8,17 @@ namespace Cake.AzCliParser.Test
 {
     public class AzCliGroupParserTest
     {
+        [Test]
+        public void TestProcessArgumentBuilder()
+        {
+            var processArgumentBuilder = new ProcessArgumentBuilder();
+            processArgumentBuilder.Append("az login");
+            processArgumentBuilder.Append("--username").AppendQuoted("bsmith");
+            processArgumentBuilder.Append("--password").AppendSecret("secretpassword");
+            processArgumentBuilder.RenderSafe().ShouldBe("az login --username \"bsmith\" --password [REDACTED]");
+            processArgumentBuilder.Render().ShouldBe("az login --username \"bsmith\" --password secretpassword");
+        }
+
         [Test]
         public void DeprecatedCommand()
         {

@@ -12,27 +12,31 @@ namespace Cake.AzureCli
             Context = context;
         }
 
-        private void AppendArguments(ref string baseCommand, ProcessArgumentBuilder arguments)
+        private void AppendArguments(ProcessArgumentBuilder processArgumentBuilder, ProcessArgumentBuilder arguments)
         {
             if (arguments != null)
             {
-                baseCommand += " " + arguments.Render().TrimEnd();
+                foreach (var argument in arguments)
+                {
+                    processArgumentBuilder.Append(argument);
+                }
             }
         }
 
-        protected void AppendIfNonNull(ref string baseCommand, string paramName, string setting)
+        protected void AppendIfNonNull(ProcessArgumentBuilder processArgumentBuilder, string paramName, string setting)
         {
             if (!string.IsNullOrEmpty(setting))
             {
-                baseCommand += $" {paramName}={setting}";
+                // todo: any way to figure out when to AppendQuoted or AppendSecret?
+                processArgumentBuilder.Append(paramName).Append(setting);
             }
         }
 
-        protected dynamic Execute(string baseCommand, AzSettingsBase settings)
+        protected dynamic Execute(ProcessArgumentBuilder processArgumentBuilder, AzSettingsBase settings)
         {
-            AppendArguments(ref baseCommand, settings.Arguments);
+            AppendArguments(processArgumentBuilder, settings.Arguments);
             var commandExecutor = new CommandExecutor(Context);
-            return commandExecutor.ExecuteCommand(baseCommand);
+            return commandExecutor.ExecuteCommand(processArgumentBuilder);
         }
 
     }

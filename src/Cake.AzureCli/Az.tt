@@ -13,6 +13,7 @@
 <#@ output extension=".cs" #>
 
 using Cake.Core;
+using Cake.Core.IO;
 
 namespace Cake.AzureCli
 {
@@ -61,12 +62,13 @@ private void WriteCliGroup(CliGroup cliGroup) {
         WriteLine("/// <param name=\"settings\">The settings.</param>");
         WriteLine($"public dynamic {commandName}({commandSettings} settings) {{");
         PushIndent("    ");
-        WriteLine($"var baseCommand = \"{cliCommand.Parents} {cliCommand.Name}\";");
+        WriteLine("var args = new ProcessArgumentBuilder();");
+        WriteLine($"args.Append(\"{cliCommand.Parents} {cliCommand.Name}\");");
         foreach (var argument in cliCommand.Arguments) {
             var argName = NameMaker.MakeName(argument);
-            WriteLine($"AppendIfNonNull(ref baseCommand, \"{argument.Name}\", settings.{argName});");
+            WriteLine($"AppendIfNonNull(args, \"{argument.Name}\", settings.{argName});");
         }
-        WriteLine("return Execute(baseCommand, settings);");
+        WriteLine("return Execute(args, settings);");
         PopIndent();
         WriteLine("}");
         WriteLine("");
