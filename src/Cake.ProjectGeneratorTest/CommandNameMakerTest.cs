@@ -10,7 +10,7 @@ namespace Cake.AzCliParser.Test
         [Test]
         public void GivenArgumentStartsWithNumber_WhenMakeName_ItIsPrefixedWithA()
         {
-            var commandNameMaker = new CommandNameMaker();
+            var commandNameMaker = new NameMaker();
             var cliArgument = new CliArgument
             {
                 Name = "404Document"
@@ -23,26 +23,26 @@ namespace Cake.AzCliParser.Test
         [Test]
         public void GivenCliCommandWithDashesInName_WhenMakeName_ItIsTitleCaseWithNoDashes()
         {
-            var commandNameMaker = new CommandNameMaker();
-            var name = commandNameMaker.MakeName(new CliCommand
+            var commandNameMaker = new NameMaker();
+            var name = commandNameMaker.MakeCommandName(new CliCommand
             {
                 Name = "get-access-token",
                 Parents = "az account"
             });
-            name.ShouldBe("AccountGetAccessToken");
+            name.ShouldBe("GetAccessToken");
         }
 
         [Test]
         public void GivenCliCommandWithDashesInParentNames_WhenMakeName_ItIsTitleCaseWithNoDashesMinusAz()
         {
-            var commandNameMaker = new CommandNameMaker();
-            var name = commandNameMaker.MakeName(new CliCommand
+            var commandNameMaker = new NameMaker();
+            var name = commandNameMaker.MakeCommandName(new CliCommand
             {
                 Name = "add",
                 Parents = "az account management-group subscription"
             });
 
-            name.ShouldBe("AccountManagementGroupSubscriptionAdd");
+            name.ShouldBe("Add");
         }
     }
 }

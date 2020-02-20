@@ -7,7 +7,7 @@ namespace Cake.ProjectGenerator.Test.Resources
     {
         public static string GetResource(string resourceName)
         {
-            resourceName = "Cake.ProjectGenerator.Test.Resources." + resourceName;
+            resourceName = "Cake.AzCliParser.Test.Resources." + resourceName;
             var assembly = Assembly.GetExecutingAssembly();
 
             using Stream stream = assembly.GetManifestResourceStream(resourceName);

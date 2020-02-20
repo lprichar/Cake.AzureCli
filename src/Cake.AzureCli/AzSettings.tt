@@ -28,12 +28,12 @@ namespace Cake.AzureCli
 
     PushIndent("    ");
     foreach (var cliCommand in allCliCommands) {
-        var commandName = CommandNameMaker.MakeName(cliCommand);
+        var commandSettings = NameMaker.MakeCommandSettings(cliCommand);
 
-        WriteLine($"public class {commandName}Settings : AzSettingsBase {{");
+        WriteLine($"public sealed class {commandSettings} : AzSettingsBase {{");
         PushIndent("    ");
         foreach (var argument in cliCommand.Arguments) {
-            var argName = CommandNameMaker.MakeName(argument);
+            var argName = NameMaker.MakeName(argument);
             WriteLine("/// <summary>");
             WriteLine($"/// {argument.Description}");
             WriteLine("/// </summary>");
@@ -49,7 +49,7 @@ namespace Cake.AzureCli
 }
 
 <#+ 
-private CommandNameMaker CommandNameMaker = new CommandNameMaker();
+private NameMaker NameMaker = new NameMaker();
 private CommandFinder CommandFinder = new CommandFinder();
 
 private CliProgram GetAzCliHelpOutputJson() {

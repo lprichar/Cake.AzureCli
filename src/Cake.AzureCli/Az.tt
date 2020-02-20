@@ -13,85 +13,82 @@
 <#@ output extension=".cs" #>
 
 using Cake.Core;
-using Cake.Core.Annotations;
-using Cake.Core.IO;
 
 namespace Cake.AzureCli
 {
-    public class Az
-    {
-        private readonly ICakeContext _context;
-
-        public Az(ICakeContext context) 
-        {
-            _context = context;
-        }
-        
-        private void AppendArguments(ref string baseCommand, ProcessArgumentBuilder arguments)
-        {
-            if (arguments != null)
-            {
-                baseCommand += " " + arguments.Render().TrimEnd();
-            }
-        }
-
-        private void AppendIfNonNull(ref string baseCommand, string paramName, string setting)
-        {
-            if (!string.IsNullOrEmpty(setting))
-            {
-                baseCommand += $" {paramName}={setting}";
-            }
-        }
-
-        private dynamic Execute(string baseCommand, AzSettingsBase settings)
-        {
-            AppendArguments(ref baseCommand, settings.Arguments);
-            var commandExecutor = new CommandExecutor(_context);
-            return commandExecutor.ExecuteCommand(baseCommand);
-        }
 
 <# 
-        var cliProgram = GetAzCliHelpOutputJson();
-        var allCliCommands = CommandFinder.GetAllCliCommands(cliProgram);
-
-        PushIndent("        ");
-        foreach (var cliCommand in allCliCommands) {
-            var cliCommandName = CommandNameMaker.MakeName(cliCommand);
-            var category = CommandNameMaker.MakeCategory(cliCommand);
-
-            WriteLine("/// <summary>");
-            WriteLine($"/// \"{cliCommand.Parents} {cliCommand.Name}\".");
-            WriteLine($"/// {cliCommand.ShortDescription}");
-            //foreach (var example in cliCommand.Examples) {
-            //    WriteLine($"/// {example.Description}");
-            //    WriteLine($"/// `{example.Example}`");
-            //    WriteLine("///");
-            //}
-            WriteLine("/// </summary>");
-            WriteLine("/// <param name=\"context\">The context.</param>");
-            WriteLine("/// <param name=\"settings\">The settings.</param>");
-            WriteLine("[CakeMethodAlias]");
-            WriteLine($"[CakeAliasCategory(\"{category}\")]");
-            WriteLine($"public dynamic {cliCommandName}({cliCommandName}Settings settings) {{");
-            PushIndent("    ");
-            WriteLine($"var baseCommand = \"{cliCommand.Parents} {cliCommand.Name}\";");
-            foreach (var argument in cliCommand.Arguments) {
-                var argName = CommandNameMaker.MakeName(argument);
-                WriteLine($"AppendIfNonNull(ref baseCommand, \"{argument.Name}\", settings.{argName});");
-            }
-            WriteLine("return Execute(baseCommand, settings);");
-            PopIndent();
-            WriteLine($"}}");
-            WriteLine("");
-        }
-        PopIndent();
-        #>
-    }
+    var cliProgram = GetAzCliHelpOutputJson();
+    PushIndent("    ");
+    WriteCliGroup(cliProgram.RootCommand);
+    PopIndent();
+#>
 }
 
 <#+ 
-private CommandNameMaker CommandNameMaker = new CommandNameMaker();
+private NameMaker NameMaker = new NameMaker();
 private CommandFinder CommandFinder = new CommandFinder();
+
+private void WriteCliGroup(CliGroup cliGroup) {
+    var cliGroupType = NameMaker.MakeCliGroupType(cliGroup);
+
+    WriteLine("/// <summary>");
+    WriteLine("/// " + cliGroup.Description);
+    WriteLine("/// </summary>");
+    WriteLine($"public sealed class {cliGroupType} : CliGroup");
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine($"internal {cliGroupType}(ICakeContext context) : base(context) {{ }}");
+    WriteLine("");
+    foreach (var cliCommand in cliGroup.Commands) {
+        var commandName = NameMaker.MakeCommandName(cliCommand);
+        var commandSettings = NameMaker.MakeCommandSettings(cliCommand);
+        var category = NameMaker.MakeCategory(cliCommand);
+
+        WriteLine("/// <summary>");
+        WriteLine($"/// {cliCommand.ShortDescription}");
+        WriteLine($"/// (aka \"{cliCommand.Parents} {cliCommand.Name}\")");
+        foreach (var example in cliCommand.Examples) {
+            WriteLine("/// <example>");
+            WriteLine($"/// {example.Description}");
+            WriteLine("/// <code>");
+            WriteLine($"/// {example.Example}");
+            WriteLine("/// </code>");
+            WriteLine("/// </example>");
+        }
+        WriteLine("/// </summary>");
+        WriteLine("/// <param name=\"context\">The context.</param>");
+        WriteLine("/// <param name=\"settings\">The settings.</param>");
+        WriteLine($"public dynamic {commandName}({commandSettings} settings) {{");
+        PushIndent("    ");
+        WriteLine($"var baseCommand = \"{cliCommand.Parents} {cliCommand.Name}\";");
+        foreach (var argument in cliCommand.Arguments) {
+            var argName = NameMaker.MakeName(argument);
+            WriteLine($"AppendIfNonNull(ref baseCommand, \"{argument.Name}\", settings.{argName});");
+        }
+        WriteLine("return Execute(baseCommand, settings);");
+        PopIndent();
+        WriteLine("}");
+        WriteLine("");
+    }
+    foreach (var subCliGroup in cliGroup.Subgroups) {
+        var cliSubGroupName = NameMaker.MakeCliGroupName(subCliGroup);
+        var cliSubGroupType = NameMaker.MakeCliGroupType(subCliGroup);
+
+        WriteLine("/// <summary>");
+        WriteLine($"/// {subCliGroup.Description}");
+        WriteLine("/// </summary>");
+        WriteLine($"public {cliSubGroupType} {cliSubGroupName} => new {cliSubGroupType}(Context);");
+        WriteLine("");
+    }
+    PopIndent();
+    WriteLine("}");
+    WriteLine("");
+
+    foreach (var subCliGroup in cliGroup.Subgroups) {
+        WriteCliGroup(subCliGroup);
+    }
+}
 
 private CliProgram GetAzCliHelpOutputJson() {
     var templateFile = new FileInfo(Host.TemplateFile);

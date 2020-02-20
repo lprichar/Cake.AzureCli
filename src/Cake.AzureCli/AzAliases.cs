@@ -7,9 +7,9 @@ namespace Cake.AzureCli
     public static class AzAliases
     {
         [CakeMethodAlias]
-        public static Az Az(this ICakeContext context)
+        public static AzCliGroup Az(this ICakeContext context)
         {
-            return new Az(context);
+            return new AzCliGroup(context);
         }
     }
 }
