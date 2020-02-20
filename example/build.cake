@@ -32,8 +32,14 @@ Task("Login")
    Az().Account.Set(new AzAccountSetSettings {
       Subscription = subscription
    });
+});
 
+Task("ListResourceGroups")
+   .IsDependentOn("Login")
+   .Does(() =>
+{
    // listing names of all resource groups
+   Information("Resource Groups:");
    dynamic allResourceGroups = Az().Group.List(new AzGroupListSettings());
    foreach (var resourceGroup in allResourceGroups) {
       Information(resourceGroup.name);
@@ -42,7 +48,7 @@ Task("Login")
 
 Task("Default")
 .Does(() => {
-   Information("try: .\\build.ps1 -target=\"Login\" --username=\"user@address.com\" -password=myPassword -subscription=subscriptionid");
+   Information("try: .\\build.ps1 -target=\"ListResourceGroups\" --username=\"user@address.com\" -password=myPassword");
 });
 
 RunTarget(target);

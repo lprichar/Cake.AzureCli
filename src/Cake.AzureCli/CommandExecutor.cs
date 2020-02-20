@@ -1,4 +1,5 @@
-﻿using Cake.Core;
+﻿using Cake.Common.Diagnostics;
+using Cake.Core;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
