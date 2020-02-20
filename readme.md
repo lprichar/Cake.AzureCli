@@ -2,6 +2,35 @@
 A [Cake](http://cakebuild.net) plugin that provides strongly typed, fully intellisense documented, and cross platform access
 to all 2,833 Azure CLI commands and their 32,669 individual settings.
 
+# Usage
+
+Reference with:
+
+`#addin "nuget:?package=Cake.AzureCli&version=1.2.0"`
+
+All Az commands are accessed with `Az()` and then dot separated groups and a command all in Pascal case e.g. `az group deployment operation list` on the cli is accessed like  `Az().Group.Deployment.Operation.List()` in Cake.AzureCli.
+
+```csharp
+// "'az login' is accessed via Az().Login()
+dynamic result = Az().Login(new LoginSettings {
+   Username = username,
+   // all commands can be customized if necessary with a ProcessArgumentBuilder
+   Arguments = new ProcessArgumentBuilder()
+      // anything appended with .AppendSecret() will be rendered as [REDACTED] if cake is run with `-verbosity=diagnostic`
+      .Append("--password").AppendSecret(password)
+});
+
+// if azure commands result in json (typically) they are converted to dynamic objects
+Information("1st tenant = " + result[0].tenantId);
+
+// 'az account set' is accessed with AzAccountSet
+Az().AccountSet(new AccountSetSettings {
+   Subscription = subscription
+});
+```
+
+See /example/build.cake for more examples.
+
 # Implementation Details
 
 ## Az Cli Parser
@@ -13,29 +42,3 @@ Consequently as Az CLI gets updated it should be trivial to update it.
 
 The Cake.AzureCli project contains two T4 templates that generate the actual Cake extension methods and the parameter classes.  These files read the json file and each write a large file on each save.
 
-# Usage
-
-Reference with:
-
-`#addin "nuget:?package=Cake.AzureCli&version=1.0.0"`
-
-All Az commands are accessed with `Az()` and the remainder of the command in Pascal case e.g. `az account set` is accessed like `Az().AccountSet(new AccountSetSettings{...})`. 
-
-```csharp
-// "'az login' is accessed via AzLogin. Arguments can be customized if necessary with as ProcessArgumentBuilder
-dynamic result = Az().Login(new LoginSettings {
-   Username = username,
-   Arguments = new ProcessArgumentBuilder()
-      .Append("--password").AppendSecret(password)
-});
-
-// If azure commands result in json (typically) they are converted to dynamic objects
-Information("1st tenant = " + result[0].tenantId);
-
-// 'az account set' is accessed with AzAccountSet
-Az().AccountSet(new AccountSetSettings {
-   Subscription = subscription
-});
-```
-
-See /example/build.cake for sample dll reference usage.
