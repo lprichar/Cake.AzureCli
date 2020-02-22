@@ -12,8 +12,6 @@ namespace Cake.AzCliParser
 
     public class Logger : ILogger
     {
-        private readonly FileStream _fileStream;
-        private readonly StreamWriter _streamWriter;
         private const string LogFileName = "AzCliParser.log";
 
         public Logger()
@@ -22,14 +20,11 @@ namespace Cake.AzCliParser
             {
                 File.Delete(LogFileName);
             }
-
-            _fileStream = File.OpenWrite(LogFileName);
-            _streamWriter = new StreamWriter(_fileStream);
         }
 
         private void Log(string message)
         {
-            _streamWriter.Write(message + Environment.NewLine);
+            File.AppendAllText(LogFileName, message + Environment.NewLine);
             Console.WriteLine(message);
         }
 
@@ -50,10 +45,6 @@ namespace Cake.AzCliParser
 
         public void Dispose()
         {
-            _streamWriter.Close();
-            _fileStream.Close();
-            _streamWriter.Dispose();
-            _fileStream.Dispose();
         }
     }
 }
