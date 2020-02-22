@@ -6,13 +6,17 @@ namespace Cake.AzCliParser
 {
     class Program
     {
+        private const string OutputJsonFile = "../../../../Cake.AzureCli/AzCliHelpOutput.json";
+        private const string OutputJsonMinifiedFile = "../../../../Cake.AzureCli/AzCliHelpOutput.min.json";
+
         static void Main(string[] args)
         {
             var azCliParser = new AzCliParser();
             try
             {
                 var cliProgram = azCliParser.ParseRoot();
-                WriteOutCliProgram(cliProgram);
+                WriteOutCliProgram(cliProgram, OutputJsonFile, true);
+                WriteOutCliProgram(cliProgram, OutputJsonMinifiedFile, false);
             }
             finally
             {
@@ -20,13 +24,13 @@ namespace Cake.AzCliParser
             }
         }
 
-        private static void WriteOutCliProgram(CliProgram cliProgram)
+        private static void WriteOutCliProgram(CliProgram cliProgram, string file, bool indented)
         {
             var cliProgramSerialized = JsonSerializer.Serialize(cliProgram, new JsonSerializerOptions
             {
-                WriteIndented = true,
+                WriteIndented = indented,
             });
-            File.WriteAllText("../../../../Cake.AzureCli/AzCliHelpOutput.json", cliProgramSerialized);
+            File.WriteAllText(file, cliProgramSerialized);
         }
     }
 }
