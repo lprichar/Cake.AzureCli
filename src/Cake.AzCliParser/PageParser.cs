@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cake.AzCliParser
 {
@@ -90,9 +91,11 @@ namespace Cake.AzCliParser
             };
         }
 
-        private static bool IsNameValuePair(string line)
+        public static bool IsNameValuePair(string line)
         {
-            return line.Contains(" : ");
+            var numberOfPrefixingSpaces = new Regex("^( )+[^ ]").Match(line).Groups[1].Captures.Count;
+            var lineIsIndentedPrettyFar = numberOfPrefixingSpaces > 12;
+            return line.Contains(" : ") && !lineIsIndentedPrettyFar;
         }
 
         private bool IsHeader(string line)

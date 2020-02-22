@@ -7,6 +7,49 @@ namespace Cake.AzCliParser.Test
     public class AzCliCommandParserTest
     {
         [Test]
+        public void ArgumentsWithFishyCharacters()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Command")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az sf application update", "Update a Azure Service Fabric application.")
+                        },
+                    },
+                    new PageHeader("Arguments")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("--service-type-health-policy-map", @"Specify the map of the health policy to use in the following format: {""ServiceTypeName"" : ""MaxPercentUnhealthyP
+artitionsPerService,MaxPercentUnhealthyRep
+licasPerPartition,MaxPercentUnhealthyServi
+ces""}. For example: @{ ""ServiceTypeName01""
+= ""5,10,5""; ""ServiceTypeName02"" = ""5,5,5""
+}."),
+                        }
+                    },
+                }
+            };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliCommandParser(fakeLogger);
+
+            // ACT
+            var cliCommand = azCliParserService.ParsePage(parsedPage);
+
+            // ASSERT
+            var argument = cliCommand.Arguments.ShouldHaveSingleItem();
+            argument.Name.ShouldBe("--service-type-health-policy-map");
+            argument.ShortName.ShouldBeNull("-n");
+            argument.Required.ShouldBeFalse();
+            argument.Description.ShouldStartWith("Specify the map of the health policy to use in the following format: {\"");
+        }
+
+        [Test]
         public void ParseTrippleArgs()
         {
             // ARRANGE

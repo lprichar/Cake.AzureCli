@@ -1,6 +1,8 @@
 using Cake.ProjectGenerator.Test.Resources;
 using NUnit.Framework;
 using Shouldly;
+using System;
+using System.Linq;
 
 namespace Cake.AzCliParser.Test
 {
@@ -8,6 +10,44 @@ namespace Cake.AzCliParser.Test
     {
         public class PageParserTest
         {
+            [Test]
+            public void GivenLineHasColonAndNotIndentedMuch_WhenDeterminingIsNameValuePair_ThenItIs()
+            {
+                var line = "                                                          {\"ServiceTypeName\" : \"MaxPercentUnhealthyP";
+                var isNameValuePair = PageParser.IsNameValuePair(line);
+                isNameValuePair.ShouldBeFalse();
+            }
+
+            [Test]
+            public void GivenLineHasColonButIndentedPrettyFar_WhenDeterminingIsNameValuePair_ThenItIsNot()
+            {
+                var line = "    --service-type-health-policy-map                    : Specify the map of the health policy to";
+                var isNameValuePair = PageParser.IsNameValuePair(line);
+                isNameValuePair.ShouldBeTrue();
+            }
+
+            [Test]
+            public void TestAzSfApplicationUpdate_ColonsInDescriptionAreNotNewNameValuePairs()
+            {
+                // ARRANGE
+                var azSfApplicationUpdate = ResourceManager.GetAzSfApplicationUpdate();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParseString(azSfApplicationUpdate);
+
+                // ASSERT
+                var argumentSection = parsedPage.Headers.FirstOrDefault(i => i.Title == "Arguments");
+                argumentSection.ShouldNotBeNull();
+                argumentSection.NameValues.Count.ShouldBe(9);
+                var policyMap = argumentSection.NameValues.FirstOrDefault(i => i.Name == "--service-type-health-policy-map");
+                policyMap.ShouldNotBeNull();
+                policyMap.Value.ShouldStartWith("Specify the map of the health policy ");
+                Console.WriteLine(policyMap.Value);
+                policyMap.Value.ShouldEndWith("}. ");
+            }
+
+
             [Test]
             public void TestAzAksInstallConnector()
             {
