@@ -55,7 +55,7 @@ private CommandFinder CommandFinder = new CommandFinder();
 private CliProgram GetAzCliHelpOutputJson() {
     var templateFile = new FileInfo(Host.TemplateFile);
     var currentFolder = templateFile.Directory.FullName;
-    var azCliHelpOutputFileLocation = Path.Combine(currentFolder, "AzCliHelpOutput.json");
+    var azCliHelpOutputFileLocation = Path.Combine(currentFolder, "AzCliHelpOutput.min.json");
     var azCliHelpOutputJson = File.ReadAllText(azCliHelpOutputFileLocation);
     var cliProgram = JsonConvert.DeserializeObject<CliProgram>(azCliHelpOutputJson);
     return cliProgram;
