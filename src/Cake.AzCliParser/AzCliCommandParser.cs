@@ -8,13 +8,9 @@ namespace Cake.AzCliParser
 {
     public class AzCliCommandParser : ParserBase
     {
-        private static readonly List<string> ExpectedSections = new List<string> { "^Command$", "Arguments$", "^Examples$", "^For more specific examples" };
-        private readonly ILogger _logger;
+        private static readonly List<string> CommandExpectedSections = new List<string> { "^Command$", "Arguments$", "^Examples$", "^For more specific examples", "^Please let us know how we are doing" };
 
-        public AzCliCommandParser(ILogger logger)
-        {
-            _logger = logger;
-        }
+        public AzCliCommandParser(ILogger logger) : base(logger) { }
 
         public CliCommand ParsePage(ParsedPage parsedPage)
         {
@@ -25,14 +21,7 @@ namespace Cake.AzCliParser
 
             var name = parsedPage.Headers[0].NameValues[0].Name;
 
-            var unexpectedSections = parsedPage.Headers
-                .Select(h => h.Title)
-                .Where(h => !ExpectedSections.Any(es => !Regex.IsMatch(h, es)));
-
-            foreach (var unexpectedSection in unexpectedSections)
-            {
-                _logger.Warn($"Unexpected section {unexpectedSection} in {name}");
-            }
+            LogWarnUnexpectedSections(parsedPage, name, CommandExpectedSections);
 
             return new CliCommand
             {

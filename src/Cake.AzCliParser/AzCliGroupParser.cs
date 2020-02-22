@@ -7,13 +7,9 @@ namespace Cake.AzCliParser
 {
     public class AzCliGroupParser : ParserBase
     {
-        private static readonly List<string> ExpectedSections = new List<string> { "Group", "Commands:", "Subgroups:" };
-        private readonly ILogger _logger;
+        public static readonly List<string> GroupExpectedSections = new List<string> { "^Group$", "^Commands:$", "^Subgroups:$", "^Please let us know how we are doing" };
 
-        public AzCliGroupParser(ILogger logger)
-        {
-            _logger = logger;
-        }
+        public AzCliGroupParser(ILogger logger) : base(logger) { }
 
         public CliGroup ParsePage(ParsedPage parsedPage)
         {
@@ -24,11 +20,7 @@ namespace Cake.AzCliParser
 
             var nameDescription = ParseNameAndDescription(parsedPage);
 
-            var unexpectedSections = parsedPage.Headers.Where(h => !ExpectedSections.Contains(h.Title));
-            foreach (var unexpectedSection in unexpectedSections)
-            {
-                _logger.Warn($"Unexpected section {unexpectedSection.Title} in {nameDescription.Name}");
-            }
+            LogWarnUnexpectedSections(parsedPage, nameDescription.Name, GroupExpectedSections);
 
             return new CliGroup
             {

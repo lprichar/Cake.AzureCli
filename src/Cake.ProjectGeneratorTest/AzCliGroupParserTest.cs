@@ -57,6 +57,24 @@ namespace Cake.AzCliParser.Test
         }
 
         [Test]
+        public void PleaseLetUsKnowIsExpectedSection()
+        {
+            ParserBase.IsExpectedSection("Please let us know how we are doing slkjdljslkdjflkj", AzCliGroupParser.GroupExpectedSections).ShouldBeTrue();
+        }
+
+        [Test]
+        public void ZzzIsUnexpectedSection()
+        {
+            ParserBase.IsExpectedSection("Zzz", AzCliGroupParser.GroupExpectedSections).ShouldBeFalse();
+        }
+
+        [Test]
+        public void GroupIsExpectedSection()
+        {
+            ParserBase.IsExpectedSection("Group", AzCliGroupParser.GroupExpectedSections).ShouldBeTrue();
+        }
+
+        [Test]
         public void LogUnexpectedSections()
         {
             // ARRANGE
