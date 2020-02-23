@@ -20,10 +20,10 @@ dynamic result = Az().Login(new LoginSettings {
       .Append("--password").AppendSecret(password)
 });
 
-// if azure commands result in json (typically) they are converted to dynamic objects
+// if azure commands result in json they are converted to dynamic objects
 Information("1st tenant = " + result[0].tenantId);
 
-// 'az account set' is accessed with AzAccountSet
+// 'az account set' is accessed with Az().Account.Set()
 Az().AccountSet(new AccountSetSettings {
    Subscription = subscription
 });

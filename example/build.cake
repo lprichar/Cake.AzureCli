@@ -14,28 +14,30 @@ var subscription = Argument<string>("subscription", null);
 Task("Login")
    .Does(() =>
 {
-   // "'az login' is accessed via AzLogin. Arguments can be customized if necessary with as ProcessArgumentBuilder
+   // "'az login' is accessed via Az().Login()
    dynamic loginResult = Az().Login(new AzLoginSettings {
       Username = username,
+      // all commands can be customized if necessary with a ProcessArgumentBuilder
       Arguments = new ProcessArgumentBuilder()
+         // anything appended with .AppendSecret() will be rendered as [REDACTED] if cake is run with `-verbosity=diagnostic`
          .Append("--password").AppendSecret(password)
    });
 
    if (subscription == null) {
-      // If azure commands result in json (typically) they are converted to dynamic objects
+      // If azure commands result in json they are converted to dynamic objects
       var firstSubscription = loginResult[0].id;
       Information($"Subscription is null, using 1st subscription ({firstSubscription})");
       subscription = firstSubscription;
    }
 
-   // 'az account set' is accessed with AzAccountSet
+   // 'az account set' is accessed with Az().Account.Set()
    Az().Account.Set(new AzAccountSetSettings {
       Subscription = subscription
    });
 });
 
 Task("ListResourceGroups")
-   .IsDependentOn("Login")
+   .IsDependentOn("Login") // yayy dependency management!
    .Does(() =>
 {
    // listing names of all resource groups
