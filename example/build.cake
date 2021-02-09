@@ -1,5 +1,5 @@
 #reference "../src/Cake.AzureCli/bin/Debug/netstandard2.0/Cake.AzureCli.dll"
-//#addin "nuget:?package=Cake.AzureCli&version=1.0.0"
+#addin "nuget:?package=Cake.AzureCli&version=1.2.0"
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -47,6 +47,48 @@ Task("ListResourceGroups")
       Information(resourceGroup.name);
    }
 });
+
+const string storageAccountName = "MyStorageAccount";
+
+Task("GetStorageKey")
+   .Does(() =>
+{
+   
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Task("Default")
 .Does(() => {
