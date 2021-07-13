@@ -76,7 +76,7 @@ namespace Cake.AzCliParser.Test
                 var parsedPage = pageParser.ParseString(azLogin);
 
                 // ASSERT
-                parsedPage.Headers.Count.ShouldBe(6);
+                parsedPage.Headers.Count.ShouldBe(7);
 
                 var commandHeader = parsedPage.Headers[0];
                 commandHeader.Title.ShouldBe("Command");
@@ -100,11 +100,10 @@ namespace Cake.AzCliParser.Test
                 pageHeader.TextBlocks.Count.ShouldBe(6);
                 pageHeader.TextBlocks[0].Text.ShouldBe("Log in interactively.");
                 pageHeader.TextBlocks[0].NestedText.Text.ShouldBe("az login");
-                pageHeader.TextBlocks[1].Text
-                    .ShouldBe(
-                        "Log in with user name and password. This doesn't work with Microsoft accounts or accounts that have two-factor authentication enabled.");
+                pageHeader.TextBlocks[1].Text.ShouldBe(
+                        "Log in with user name and password. This doesn't work with Microsoft accounts or accounts that have two-factor authentication enabled. Use -p=secret if the first character of the password is '-'.");
                 pageHeader.TextBlocks[1].NestedText.Text.ShouldBe("az login -u johndoe@contoso.com -p VerySecret");
-                pageHeader.TextBlocks[2].Text.ShouldBe("Log in with a service principal using client secret.");
+                pageHeader.TextBlocks[2].Text.ShouldBe("Log in with a service principal using client secret. Use -p=secret if the first character of the password is '-'.");
                 pageHeader.TextBlocks[2].NestedText.Text.ShouldBe(
                     "az login --service-principal -u http://azure-cli-2016-08-05-14-31-15 -p VerySecret --tenant contoso.onmicrosoft.com");
             }

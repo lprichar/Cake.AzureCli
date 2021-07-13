@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 
 namespace Cake.AzCliParser
 {
@@ -34,13 +35,23 @@ namespace Cake.AzCliParser
             process.WaitForExit(1);
             var helpOutput = process.StandardOutput.ReadToEnd();
             var standardError = process.StandardError.ReadToEnd();
-            if (!string.IsNullOrWhiteSpace(standardError))
+            var anyError = !string.IsNullOrWhiteSpace(standardError);
+            if (anyError)
             {
-                _logger.Error(standardError);
+                var isFalsePositiveError = FalsePositiveErrors.Contains(standardError);
+                if (!isFalsePositiveError)
+                {
+                    _logger.Error(standardError);
+                }
             }
 
             return helpOutput;
         }
+
+        private static readonly string[] FalsePositiveErrors = {
+            "Please let us know how we are doing: https://aka.ms/azureclihats\r\nand let us know if you're interested in trying out our newest features: https://aka.ms/CLIUXstudy\r\n",
+            "Please let us know how we are doing: https://aka.ms/azureclihats\r\n",
+        };
 
     }
 }

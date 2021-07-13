@@ -35,7 +35,9 @@ See /example/build.cake for more examples.
 
 ## Az Cli Parser
 
-Naturally a project of this scope couldn't (and shouldn't for maintainability sake) be written by hand.  The project `Cake.AzCliParser` parses through the helpfiles of every command and namespace in the Az CLI and outputs them to a very large JSON file (Cake.AzureCli/AzCliHelpOutput.json, which is over 300K lines uncompressed).
+Naturally a project of this scope couldn't (and shouldn't for maintainability sake) be written by hand.  The 
+project `Cake.AzCliParser` parses through the helpfiles of every command and namespace in the Az CLI and outputs 
+them to a very large JSON file (Cake.AzureCli/AzCliHelpOutput.json, which is over 300K lines uncompressed).
 Consequently as Az CLI gets updated it should be trivial to update it.
 
 ## T4 Templates

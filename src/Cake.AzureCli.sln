@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AzCliParser.Test", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AzureCli", "Cake.AzureCli\Cake.AzureCli.csproj", "{CF7E4587-0C57-40BC-A7CE-99F5988E2512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AzCli.Core", "Cake.AzCliCore\Cake.AzCli.Core.csproj", "{1224D586-4691-4988-86D7-F887E36C3E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AzCli.Core", "Cake.AzCliCore\Cake.AzCli.Core.csproj", "{1224D586-4691-4988-86D7-F887E36C3E63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC2E7114-5629-4FEC-BAF2-BD8BE6BF03F3}"
+	ProjectSection(SolutionItems) = preProject
+		..\readme.md = ..\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -35,7 +35,7 @@ namespace Cake.AzCliParser
                         if (isNameValuePair)
                         {
                             var nameValue = line.Split(" : ");
-                            currentNameValue = new NameValue(nameValue[0], nameValue[1]);
+                            currentNameValue = new NameValue(nameValue[0], nameValue[1].Trim());
                             currentPageHeader.NameValues.Add(currentNameValue);
                         }
                         else
