@@ -7,7 +7,14 @@ namespace Cake.AzCliParser
 {
     public class AzCliGroupParser : ParserBase
     {
-        public static readonly List<string> GroupExpectedSections = new List<string> { "^Group$", "^Commands:$", "^Subgroups:$", "^Please let us know how we are doing" };
+        public static readonly List<string> GroupExpectedSections = new List<string>
+        {
+            "^Group$",
+            "^Commands:$",
+            "^Subgroups:$",
+            "^Please let us know how we are doing",
+            "^For more specific examples"
+        };
 
         public AzCliGroupParser(ILogger logger) : base(logger) { }
 
@@ -79,6 +86,7 @@ namespace Cake.AzCliParser
 
             var isPreview = ParseTag(ref name, "[Preview]");
             var isDeprecated = ParseTag(ref name, "[Deprecated]");
+            var isExperimental = ParseTag(ref name, "[Experimental]");
 
             return new CliGroup()
             {
@@ -86,7 +94,8 @@ namespace Cake.AzCliParser
                 Description = nv.Value,
                 Commands = new List<CliCommand>(),
                 IsPreview = isPreview,
-                IsDeprecated = isDeprecated
+                IsDeprecated = isDeprecated,
+                IsExperimental = isExperimental
             };
         }
     }

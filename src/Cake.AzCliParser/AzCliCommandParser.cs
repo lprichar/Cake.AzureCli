@@ -8,7 +8,15 @@ namespace Cake.AzCliParser
 {
     public class AzCliCommandParser : ParserBase
     {
-        private static readonly List<string> CommandExpectedSections = new List<string> { "^Command$", "Arguments$", "^Examples$", "^For more specific examples", "^Please let us know how we are doing" };
+        private static readonly List<string> CommandExpectedSections = new List<string>
+        {
+            "^Command$",
+            "Arguments$",
+            "^Examples$",
+            "^For more specific examples",
+            "^Please let us know how we are doing",
+            "^Positional$" // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
+        };
 
         public AzCliCommandParser(ILogger logger) : base(logger) { }
 
@@ -62,6 +70,7 @@ namespace Cake.AzCliParser
 
             var required = ParseTag(ref name, "[Required]");
             var inPreview = ParseTag(ref name, "[Preview]");
+            var experimental = ParseTag(ref name, "[Experimental]");
 
             var parts = GetNames(name);
             var allowedValues = ParseAllowedValues(nameValue.Value);
@@ -73,6 +82,7 @@ namespace Cake.AzCliParser
                 Description = nameValue.Value,
                 Required = required,
                 InPreview = inPreview,
+                Experimental = experimental,
                 AllowedValues = allowedValues
             };
         }
