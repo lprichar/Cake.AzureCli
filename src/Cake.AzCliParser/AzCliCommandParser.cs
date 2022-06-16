@@ -15,7 +15,8 @@ namespace Cake.AzCliParser
             "^Examples$",
             "^For more specific examples",
             "^Please let us know how we are doing",
-            "^Positional$" // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
+            "^Positional$", // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
+            "^To search AI knowledge base",
         };
 
         public AzCliCommandParser(ILogger logger) : base(logger) { }

@@ -13,7 +13,8 @@ namespace Cake.AzCliParser
             "^Commands:$",
             "^Subgroups:$",
             "^Please let us know how we are doing",
-            "^For more specific examples"
+            "^For more specific examples",
+            "^To search AI knowledge base",
         };
 
         public AzCliGroupParser(ILogger logger) : base(logger) { }
