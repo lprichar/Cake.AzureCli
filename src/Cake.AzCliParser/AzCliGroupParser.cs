@@ -61,6 +61,10 @@ namespace Cake.AzCliParser
         {
             var name = nv.Name;
             var isPreview = ParseTag(ref name, "[Preview]");
+            if (!isPreview)
+            {
+                isPreview = ParseTag(ref name, "[Experimental]");
+            }
             var isDeprecated = ParseTag(ref name, "[Deprecated]");
             return new CliCommand
             {

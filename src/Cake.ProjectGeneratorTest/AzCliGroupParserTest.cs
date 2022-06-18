@@ -296,6 +296,41 @@ namespace Cake.AzCliParser.Test
             secondCommand.IsPreview.ShouldBeTrue();
         }
 
+        [Test]
+        public void ParseExperimentalCommands()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Group")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az sig image-definition", "Manage shared gallery image with VM.")
+                        },
+                    },
+                    new PageHeader("Commands:")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("list-shared [Experimental]", "List VM Image definitions in a gallery shared directly to your subscription or tenant (preview).")
+                        },
+                    },
+                }
+            };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliGroupParser(fakeLogger);
+
+            // ACT
+            var cliGroup = azCliParserService.ParsePage(parsedPage);
+
+            // ASSERT
+            var command = cliGroup.Commands.ShouldHaveSingleItem();
+            command.Name.ShouldBe("list-shared");
+            command.IsPreview.ShouldBeTrue();
+        }
     }
 
     public class FakeLogger : ILogger
