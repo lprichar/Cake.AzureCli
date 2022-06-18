@@ -1,0 +1,453 @@
+﻿Command
+    az aks create : Create a new managed Kubernetes cluster.
+
+Arguments
+    --name -n                       [Required] : Name of the managed cluster.
+    --resource-group -g             [Required] : Name of resource group. You can configure the
+                                                 default group using `az configure --defaults
+                                                 group=<name>`.
+    --aad-admin-group-object-ids               : Comma seperated list of aad group object IDs that
+                                                 will be set as cluster admin.
+    --aad-client-app-id                        : The ID of an Azure Active Directory client
+                                                 application of type "Native". This application is
+                                                 for user login via kubectl.
+    --aad-server-app-id                        : The ID of an Azure Active Directory server
+                                                 application of type "Web app/API". This application
+                                                 represents the managed cluster's apiserver (Server
+                                                 application).
+    --aad-server-app-secret                    : The secret of an Azure Active Directory server
+                                                 application.
+    --aad-tenant-id                            : The ID of an Azure Active Directory tenant.
+    --aci-subnet-name                          : The name of a subnet in an existing VNet into which
+                                                 to deploy the virtual nodes.
+    --admin-username -u                        : User account to create on node VMs for SSH access.
+                                                 Default: azureuser.
+    --aks-custom-headers                       : Comma-separated key-value pairs to specify custom
+                                                 headers.
+    --api-server-authorized-ip-ranges          : Comma seperated list of authorized apiserver IP
+                                                 ranges. Set to 0.0.0.0/32 to restrict apiserver
+                                                 traffic to node pools.
+    --assign-identity                          : Specify an existing user assigned identity for
+                                                 control plane's usage in order to manage cluster
+                                                 resource group.
+    --assign-kubelet-identity                  : Specify an existing user assigned identity for
+                                                 kubelet's usage, which is typically used to pull
+                                                 image from ACR.
+    --attach-acr                               : Grant the 'acrpull' role assignment to the ACR
+                                                 specified by name or resource ID.
+    --auto-upgrade-channel                     : Specify the upgrade channel for autoupgrade.
+                                                 Allowed values: node-image, none, patch, rapid,
+                                                 stable.
+    --ca-profile --cluster-autoscaler-profile  : Space-separated list of key=value pairs for
+                                                 configuring cluster autoscaler. Pass an empty
+                                                 string to clear the profile.
+    --client-secret                            : Secret associated with the service principal. This
+                                                 argument is required if `--service-principal` is
+                                                 specified.
+    --defender-config                          : Path to JSON file containing Microsoft Defender
+                                                 profile configurations.
+    --disable-local-accounts                   : If set to true, getting static credential will be
+                                                 disabled for this cluster.
+    --disable-public-fqdn                      : Disable public fqdn feature for private cluster.
+    --disable-rbac                             : Disable Kubernetes Role-Based Access Control.
+    --dns-name-prefix -p                       : Prefix for hostnames that are created. If not
+                                                 specified, generate a hostname using the managed
+                                                 cluster and resource group names.
+    --dns-service-ip                           : An IP address assigned to the Kubernetes DNS
+                                                 service.
+        This address must be within the Kubernetes service address range specified by "--service-
+        cidr". For example, 10.0.0.10.
+    --docker-bridge-address                    : A specific IP address and netmask for the Docker
+                                                 bridge, using standard CIDR notation.
+        This address must not be in any Subnet IP ranges, or the Kubernetes service address range.
+        For example, 172.17.0.1/16.
+    --edge-zone                      [Preview] : The name of the Edge Zone.
+        Argument '--edge-zone' is in preview and under development. Reference and support
+        levels: https://aka.ms/CLI_refstatus
+    --enable-aad                               : Enable managed AAD feature for cluster.
+    --enable-addons -a                         : Enable the Kubernetes addons in a comma-separated
+                                                 list.
+        These addons are available:
+            - http_application_routing : configure ingress with automatic public DNS name creation.
+            - monitoring               : turn on Log Analytics monitoring. Uses the Log Analytics
+        Default Workspace if it exists, else creates one.
+                                         Specify "--workspace-resource-id" to use an existing
+        workspace.
+                                         Specify "--enable-msi-auth-for-monitoring" to use Managed
+        Identity Auth.
+                                         If monitoring addon is enabled --no-wait argument will have
+        no effect
+            - azure-policy             : enable Azure policy. The Azure Policy add-on for AKS
+        enables at-scale enforcements and safeguards on your clusters in a centralized, consistent
+        manner.
+                                         Learn more at aka.ms/aks/policy.
+            - virtual-node             : enable AKS Virtual Node.
+                                         Requires --aci-subnet-name to provide the name of an
+        existing subnet for the Virtual Node to use.
+                                         aci-subnet-name must be in the same vnet which is specified
+        by --vnet-subnet-id (required as well).
+            - confcom                  : enable confcom addon, this will enable SGX device plugin by
+        default.
+            - open-service-mesh        : enable Open Service Mesh addon.
+            - azure-keyvault-secrets-provider : enable Azure Keyvault Secrets Provider addon.
+    --enable-ahub                              : Enable Azure Hybrid User Benefits (AHUB) for
+                                                 Windows VMs.
+    --enable-azure-rbac                        : Enable Azure RBAC to control authorization checks
+                                                 on cluster.
+    --enable-cluster-autoscaler                : Enable cluster autoscaler, default value is false.
+        If specified, please make sure the kubernetes version is larger than 1.10.6.
+    --enable-defender                          : Enable Microsoft Defender security profile.
+    --enable-encryption-at-host                : Enable EncryptionAtHost, default value is false.
+    --enable-fips-image                        : Use FIPS-enabled OS on agent nodes.
+    --enable-managed-identity                  : Using a system assigned managed identity to manage
+                                                 cluster resource group.  Default: 1.
+    --enable-msi-auth-for-monitoring [Preview] : Enable Managed Identity Auth for
+                                                 Monitoring addon.  Allowed values: false, true.
+        Argument '--enable-msi-auth-for-monitoring' is in preview and under development.
+        Reference and support levels: https://aka.ms/CLI_refstatus
+    --enable-node-public-ip                    : Enable VMSS node public IP.
+    --enable-private-cluster                   : Enable private cluster.
+    --enable-secret-rotation                   : Enable secret rotation. Use with azure-keyvault-
+                                                 secrets-provider addon.
+    --enable-sgxquotehelper                    : Enable SGX quote helper for confcom addon.
+    --enable-ultra-ssd                         : Enable UltraSSD, default value is false.
+    --enable-windows-gmsa                      : Enable Windows gmsa.
+    --fqdn-subdomain                           : Prefix for FQDN that is created for private cluster
+                                                 with custom private dns zone scenario.
+    --generate-ssh-keys                        : Generate SSH public and private key files if
+                                                 missing. The keys will be stored in the ~/.ssh
+                                                 directory.
+    --gmsa-dns-server                          : Specify DNS server for Windows gmsa for this
+                                                 cluster.
+        You do not need to set this if you have set DNS server in the VNET used by the cluster.
+        You must set or not set --gmsa-dns-server and --gmsa-root-domain-name at the same time when
+        setting --enable-windows-gmsa.
+    --gmsa-root-domain-name                    : Specify root domain name for Windows gmsa for this
+                                                 cluster.
+        You do not need to set this if you have set DNS server in the VNET used by the cluster.
+        You must set or not set --gmsa-dns-server and --gmsa-root-domain-name at the same time when
+        setting --enable-windows-gmsa.
+    --kubelet-config                           : Path to JSON file containing Kubelet configurations
+                                                 for agent nodes. https://aka.ms/aks/custom-node-
+                                                 config.
+    --kubernetes-version -k                    : Version of Kubernetes to use for creating the
+                                                 cluster, such as "1.16.9".  Values from: `az aks
+                                                 get-versions`.
+    --linux-os-config                          : Path to JSON file containing OS configurations for
+                                                 Linux agent nodes. https://aka.ms/aks/custom-node-
+                                                 config.
+    --load-balancer-idle-timeout               : Load balancer idle timeout in minutes.
+        Desired idle timeout for load balancer outbound flows, default is 30 minutes. Please specify
+        a value in the range of [4, 100].
+    --load-balancer-managed-outbound-ip-count  : Load balancer managed outbound IP count.
+        Desired number of managed outbound IPs for load balancer outbound connection. Valid for
+        Standard SKU load balancer cluster only.
+    --load-balancer-outbound-ip-prefixes       : Load balancer outbound IP prefix resource IDs.
+        Comma-separated public IP prefix resource IDs for load balancer outbound connection. Valid
+        for Standard SKU load balancer cluster only.
+    --load-balancer-outbound-ips               : Load balancer outbound IP resource IDs.
+        Comma-separated public IP resource IDs for load balancer outbound connection. Valid for
+        Standard SKU load balancer cluster only.
+    --load-balancer-outbound-ports             : Load balancer outbound allocated ports.
+        Desired static number of outbound ports per VM in the load balancer backend pool. By
+        default, set to 0 which uses the default allocation based on the number of VMs.
+    --load-balancer-sku                        : Azure Load Balancer SKU selection for your cluster.
+                                                 basic or standard. Defaults to 'standard'.  Allowed
+                                                 values: basic, standard.
+        Select between Basic or Standard Azure Load Balancer SKU for your AKS cluster.
+    --location -l                              : Location. Values from: `az account list-locations`.
+                                                 You can configure the default location using `az
+                                                 configure --defaults location=<location>`.
+    --max-count                                : Maximum nodes count used for autoscaler, when "--
+                                                 enable-cluster-autoscaler" specified. Please
+                                                 specify the value in the range of [1, 1000].
+    --max-pods -m                              : The maximum number of pods deployable to a node.
+        If not specified, defaults to 110, or 30 for advanced networking configurations.
+    --min-count                                : Minimum nodes count used for autoscaler, when "--
+                                                 enable-cluster-autoscaler" specified. Please
+                                                 specify the value in the range of [1, 1000].
+    --nat-gateway-idle-timeout                 : NAT gateway idle timeout in minutes.
+        Desired idle timeout for NAT gateway outbound flows, default is 4 minutes. Please specify a
+        value in the range of [4, 120]. Valid for Standard SKU load balancer cluster with
+        managedNATGateway outbound type only.
+    --nat-gateway-managed-outbound-ip-count    : NAT gateway managed outbound IP count.
+        Desired number of managed outbound IPs for NAT gateway outbound connection. Please specify a
+        value in the range of [1, 16]. Valid for Standard SKU load balancer cluster with
+        managedNATGateway outbound type only.
+    --network-plugin                           : The Kubernetes network plugin to use.  Allowed
+                                                 values: azure, kubenet.
+        Specify "azure" for advanced networking configurations. Defaults to "kubenet".
+    --network-policy                           : The Kubernetes network policy to use.
+        Using together with "azure" network plugin.
+        Specify "azure" for Azure network policy manager and "calico" for calico network policy
+        controller.
+        Defaults to "" (network policy disabled).
+    --no-ssh-key -x                            : Do not use or create a local SSH key.
+        To access nodes after creating a cluster with this option, use the Azure Portal.
+    --no-wait                                  : Do not wait for the long-running operation to
+                                                 finish.
+    --node-count -c                            : Number of nodes in the Kubernetes node pool. After
+                                                 creating a cluster, you can change the size of its
+                                                 node pool with `az aks scale`.  Default: 3.
+    --node-osdisk-diskencryptionset-id -d      : ResourceId of the disk encryption set to use for
+                                                 enabling encryption at rest on agent node os disk.
+    --node-osdisk-size                         : Size in GB of the OS disk for each node in the node
+                                                 pool. Minimum 30 GB.
+    --node-osdisk-type                         : OS disk type to be used for machines in a given
+                                                 agent pool: Ephemeral or Managed. Defaults to
+                                                 'Ephemeral' when possible in conjunction with VM
+                                                 size and OS disk size. May not be changed for this
+                                                 pool after creation.  Allowed values: Ephemeral,
+                                                 Managed.
+    --node-public-ip-prefix-id                 : Public IP prefix ID used to assign public IPs to
+                                                 VMSS nodes.
+    --node-resource-group                      : The node resource group is the resource group where
+                                                 all customer's resources will be created in, such
+                                                 as virtual machines.
+    --node-vm-size -s                          : Size of Virtual Machines to create as Kubernetes
+                                                 nodes.
+    --nodepool-labels                          : Space-separated labels: key[=value] [key[=value]
+                                                 ...]. See https://aka.ms/node-labels for syntax of
+                                                 labels.
+    --nodepool-name                            : Node pool name, up to 12 alphanumeric characters.
+                                                 Default: nodepool1.
+    --nodepool-tags                            : Space-separated tags: key[=value] [key[=value]
+                                                 ...]. Use "" to clear existing tags.
+    --os-sku                                   : The OS SKU of the agent node pool. Ubuntu or
+                                                 CBLMariner.  Allowed values: CBLMariner, Ubuntu.
+    --outbound-type                            : How outbound traffic will be configured for a
+                                                 cluster.  Allowed values: loadBalancer,
+                                                 managedNATGateway, userAssignedNATGateway,
+                                                 userDefinedRouting.
+        Select between loadBalancer, userDefinedRouting, managedNATGateway and
+        userAssignedNATGateway. If not set, defaults to type loadBalancer. Requires --vnet-subnet-id
+        to be provided with a preconfigured route table and --load-balancer-sku to be Standard.
+    --pod-cidr                                 : A CIDR notation IP range from which to assign pod
+                                                 IPs when kubenet is used.
+        This range must not overlap with any Subnet IP ranges. For example, 172.244.0.0/16.
+    --pod-subnet-id                            : The ID of a subnet in an existing VNet into which
+                                                 to assign pods in the cluster (requires azure
+                                                 network-plugin).
+    --ppg                                      : The ID of a PPG.
+    --private-dns-zone                         : Private dns zone mode for private cluster.
+        Allowed values are "system", "none" or custom private dns zone resource id. If not set,
+        defaults to type system. Requires --enable-private-cluster to be used.
+    --rotation-poll-interval                   : Set interval of rotation poll. Use with azure-
+                                                 keyvault-secrets-provider addon.
+    --service-cidr                             : A CIDR notation IP range from which to assign
+                                                 service cluster IPs.
+        This range must not overlap with any Subnet IP ranges. For example, 10.0.0.0/16.
+    --service-principal                        : Service principal used for authentication to Azure
+                                                 APIs.
+        If not specified, a new service principal is created and cached at
+        $HOME/.azure/aksServicePrincipal.json to be used by subsequent `az aks` commands.
+    --skip-subnet-role-assignment              : Skip role assignment for subnet (advanced
+                                                 networking).
+        If specified, please make sure your service principal has the access to your subnet.
+    --snapshot-id                              : The source snapshot id used to create this cluster.
+    --ssh-key-value                            : Public key path or key contents to install on node
+                                                 VMs for SSH access. For example, 'ssh-rsa
+                                                 AAAAB...snip...UcyupgH azureuser@linuxvm'.
+                                                 Default: ~\.ssh\id_rsa.pub.
+    --tags                                     : The tags of the managed cluster. The managed
+                                                 cluster instance and all resources managed by the
+                                                 cloud provider will be tagged.
+    --uptime-sla                               : Enable a paid managed cluster service with a
+                                                 financially backed SLA.
+    --vm-set-type                              : Agent pool vm set type. VirtualMachineScaleSets or
+                                                 AvailabilitySet. Defaults to
+                                                 'VirtualMachineScaleSets'.
+    --vnet-subnet-id                           : The ID of a subnet in an existing VNet into which
+                                                 to deploy the cluster.
+    --windows-admin-password                   : User account password to use on windows node VMs.
+        Rules for windows-admin-password:
+            - Minimum-length: 14 characters
+            - Max-length: 123 characters
+            - Complexity requirements: 3 out of 4 conditions below need to be fulfilled
+              * Has lower characters
+              * Has upper characters
+              * Has a digit
+              * Has a special character (Regex match [\W_])
+            - Disallowed values:  "abc@123", "P@$$w0rd", "P@ssw0rd", "P@ssword123", "Pa$$word",
+        "pass@word1", "Password!", "Password1", "Password22", "iloveyou!"
+        Reference: https://docs.microsoft.com/dotnet/api/microsoft.azure.management.compute.models.v
+        irtualmachinescalesetosprofile.adminpassword?view=azure-dotnet.
+    --windows-admin-username                   : User account to create on windows node VMs.
+        Rules for windows-admin-username:
+            - restriction: Cannot end in "."
+            - Disallowed values: "administrator", "admin", "user", "user1", "test", "user2",
+        "test1", "user3", "admin1", "1", "123", "a", "actuser", "adm", "admin2", "aspnet", "backup",
+        "console", "david", "guest", "john", "owner", "root", "server", "sql", "support",
+        "support_388945a0", "sys", "test2", "test3", "user4", "user5".
+            - Minimum-length: 1 character
+            - Max-length: 20 characters
+        Reference: https://docs.microsoft.com/dotnet/api/microsoft.azure.management.compute.models.v
+        irtualmachinescalesetosprofile.adminusername?view=azure-dotnet.
+    --workspace-resource-id                    : The resource ID of an existing Log Analytics
+                                                 Workspace to use for storing monitoring data. If
+                                                 not specified, uses the default Log Analytics
+                                                 Workspace if it exists, otherwise creates one.
+    --yes -y                                   : Do not prompt for confirmation.
+    --zones -z                                 : Availability zones where agent nodes will be
+                                                 placed.  Allowed values: 1, 2, 3.
+
+Application Gateway Arguments
+    --appgw-id                                 : Resource Id of an existing Application Gateway to
+                                                 use with AGIC. Use with ingress-azure addon.
+    --appgw-name                               : Name of the application gateway to create/use in
+                                                 the node resource group. Use with ingress-azure
+                                                 addon.
+    --appgw-subnet-cidr                        : Subnet CIDR to use for a new subnet created to
+                                                 deploy the Application Gateway. Use with ingress-
+                                                 azure addon.
+    --appgw-subnet-id                          : Resource Id of an existing Subnet used to deploy
+                                                 the Application Gateway. Use with ingress-azure
+                                                 addon.
+    --appgw-watch-namespace                    : Specify the namespace, which AGIC should watch.
+                                                 This could be a single string value, or a comma-
+                                                 separated list of namespaces.
+
+Global Arguments
+    --debug                                    : Increase logging verbosity to show all debug logs.
+    --help -h                                  : Show this help message and exit.
+    --only-show-errors                         : Only show errors, suppressing warnings.
+    --output -o                                : Output format.  Allowed values: json, jsonc, none,
+                                                 table, tsv, yaml, yamlc.  Default: json.
+    --query                                    : JMESPath query string. See http://jmespath.org/ for
+                                                 more information and examples.
+    --subscription                             : Name or ID of subscription. You can configure the
+                                                 default subscription using `az account set -s
+                                                 NAME_OR_ID`.
+    --verbose                                  : Increase logging verbosity. Use --debug for full
+                                                 debug logs.
+
+Examples
+    Create a Kubernetes cluster with an existing SSH public key.
+        az aks create -g MyResourceGroup -n MyManagedCluster --ssh-key-value /path/to/publickey
+
+    Create a Kubernetes cluster with a specific version.
+        az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.16.9
+
+    Create a Kubernetes cluster with a larger node pool.
+        az aks create -g MyResourceGroup -n MyManagedCluster --node-count 7
+
+    Create a kubernetes cluster with k8s 1.13.9 but use vmas.
+        az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.16.9 --vm-set-
+        type AvailabilitySet
+
+    Create a kubernetes cluster with default kubernetes version, default SKU load balancer
+    (Standard) and default vm set type (VirtualMachineScaleSets).
+        az aks create -g MyResourceGroup -n MyManagedCluster
+
+    Create a kubernetes cluster with standard SKU load balancer and two AKS created IPs for the load
+    balancer outbound connection usage.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-
+        count 2
+
+    Create a kubernetes cluster with a standard SKU load balancer, with two outbound AKS managed IPs
+    an idle flow timeout of 5 minutes and 8000 allocated ports per machine
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-managed-outbound-ip-
+        count 2 --load-balancer-idle-timeout 5 --load-balancer-outbound-ports 8000
+
+    Create a kubernetes cluster with standard SKU load balancer and use the provided public IPs for
+    the load balancer outbound connection usage.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ips <ip-
+        resource-id-1,ip-resource-id-2>
+
+    Create a kubernetes cluster with standard SKU load balancer and use the provided public IP
+    prefixes for the load balancer outbound connection usage.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-outbound-ip-prefixes
+        <ip-prefix-resource-id-1,ip-prefix-resource-id-2>
+
+    Create a kubernetes cluster with a AKS managed NAT gateway, with two outbound AKS managed IPs an
+    idle flow timeout of 4 minutes
+        az aks create -g MyResourceGroup -n MyManagedCluster --nat-gateway-managed-outbound-ip-count
+        2 --nat-gateway-idle-timeout 4 --outbound-type managedNATGateway --generate-ssh-keys
+
+    Create a kubernetes cluster with basic SKU load balancer and AvailabilitySet vm set type.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku basic --vm-set-type
+        AvailabilitySet
+
+    Create a kubernetes cluster with authorized apiserver IP ranges.
+        az aks create -g MyResourceGroup -n MyManagedCluster --api-server-authorized-ip-ranges
+        193.168.1.0/24,194.168.1.0/24,195.168.1.0
+
+    Create a kubernetes cluster which enables managed identity.
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-managed-identity
+
+    Create a kubernetes cluster with userDefinedRouting, standard load balancer SKU and a custom
+    subnet preconfigured with a route table
+        az aks create -g MyResourceGroup -n MyManagedCluster --outbound-type userDefinedRouting
+        --load-balancer-sku standard --vnet-subnet-id customUserSubnetVnetID
+
+    Create a kubernetes cluster with supporting Windows agent pools.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku Standard --network-
+        plugin azure --windows-admin-username azure --windows-admin-password 'replacePassword1234$'
+
+    Create a kubernetes cluster with supporting Windows agent pools with AHUB enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku Standard --network-
+        plugin azure --windows-admin-username azure --windows-admin-password 'replacePassword1234$'
+        --enable-ahub
+
+    Create a kubernetes cluster with managed AAD enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-aad --aad-admin-group-object-
+        ids <id-1,id-2> --aad-tenant-id <id>
+
+    Create a kubernetes cluster with server side encryption using your owned key.
+        az aks create -g MyResourceGroup -n MyManagedCluster --node-osdisk-diskencryptionset-id
+        <disk-encryption-set-resource-id>
+
+    Create a kubernetes cluster with ephemeral OS enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --node-osdisk-type Ephemeral --node-
+        osdisk-size 48
+
+    Create a kubernetes cluster with EncryptionAtHost enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-encryption-at-host
+
+    Create a kubernetes cluster with UltraSSD enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-ultra-ssd
+
+    Create a kubernetes cluster with Azure RBAC enabled.
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-aad --enable-azure-rbac
+
+    Create a kubernetes cluster with custom control plane identity and kubelet identity.
+        az aks create -g MyResourceGroup -n MyManagedCluster --assign-identity <control-plane-
+        identity-resource-id> --assign-kubelet-identity <kubelet-identity-resource-id>
+
+    Create a kubernetes cluster in the Edge Zone.
+        az aks create -g MyResourceGroup -n MyManagedCluster --location <location> --kubernetes-
+        version 1.20.7 --edge-zone <edge-zone-name>
+
+    Create a kubernetes cluster with a specific OS SKU
+        az aks create -g MyResourceGroup -n MyManagedCluster --os-sku Ubuntu
+
+    Create a kubernetes cluster with custom tags
+        az aks create -g MyResourceGroup -n MyManagedCluster --tags "foo=bar" "baz=qux"
+
+    Create a kubernetes cluster with custom headers
+        az aks create -g MyResourceGroup -n MyManagedCluster --aks-custom-headers WindowsContainerRu
+        ntime=containerd,AKSHTTPCustomFeatures=Microsoft.ContainerService/CustomNodeConfigPreview
+
+    Create a kubernetes cluster with FIPS-enabled OS
+        az aks create -g MyResourceGroup -n MyManagedCluster --enable-fips-image
+
+    Create a kubernetes cluster with enabling Windows gmsa and with setting DNS server in the vnet
+    used by the cluster.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku Standard --network-
+        plugin azure --windows-admin-username azure --windows-admin-password 'replacePassword1234$'
+        --enable-windows-gmsa
+
+    Create a kubernetes cluster with enabling Windows gmsa but without setting DNS server in the
+    vnet used by the cluster.
+        az aks create -g MyResourceGroup -n MyManagedCluster --load-balancer-sku Standard --network-
+        plugin azure --windows-admin-username azure --windows-admin-password 'replacePassword1234$'
+        --enable-windows-gmsa --gmsa-dns-server "10.240.0.4" --gmsa-root-domain-name "contoso.com"
+
+    create a kubernetes cluster with a snapshot id.
+        az aks create -g MyResourceGroup -n MyManagedCluster --kubernetes-version 1.20.9 --snapshot-
+        id "/subscriptions/00000/resourceGroups/AnotherResourceGroup/providers/Microsoft.ContainerSe
+        rvice/snapshots/mysnapshot1"
+
+To search AI knowledge base for examples, use: az find "az aks create"
+
+Please let us know how we are doing: https://aka.ms/azureclihats

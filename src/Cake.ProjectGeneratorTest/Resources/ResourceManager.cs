@@ -29,5 +29,10 @@ namespace Cake.ProjectGenerator.Test.Resources
         {
             return GetResource("AzSfApplicationUpdate.txt");
         }
+
+        public static string GetAzAksCreate()
+        {
+            return GetResource("AzAksCreate.txt");
+        }
     }
 }

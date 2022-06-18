@@ -107,6 +107,54 @@ namespace Cake.AzCliParser.Test
                 pageHeader.TextBlocks[2].NestedText.Text.ShouldBe(
                     "az login --service-principal -u http://azure-cli-2016-08-05-14-31-15 -p VerySecret --tenant contoso.onmicrosoft.com");
             }
+
+            [Test]
+            public void TestAzAksCreate()
+            {
+                /*
+                 * The implementation that is tested here is currently
+                 * only a bit more that a "workaround".
+                 * This test should be expanded much further and
+                 * the implementation should be modified accordingly.
+                 *
+                 * Currently the implementation only ignores "listItems"
+                 * and does not recognize them as valid values.
+                 * Hence it does not provide a fully typed implementation
+                 * of those values.
+                 */
+
+                // ARRANGE
+                var azAksCreate = ResourceManager.GetAzAksCreate();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParseString(azAksCreate);
+
+                // ASSERT
+                parsedPage.Headers.Count.ShouldBe(7);
+
+                var commandHeader = parsedPage.Headers[0];
+                commandHeader.Title.ShouldBe("Command");
+                commandHeader.NameValues.Count.ShouldBe(1);
+
+                var argumentsHeader = parsedPage.Headers[1];
+                argumentsHeader.Title.ShouldBe("Arguments");
+                argumentsHeader.NameValues.Count.ShouldBe(95);
+
+                var appGatewayArgumentsHeader = parsedPage.Headers[2];
+                appGatewayArgumentsHeader.Title.ShouldBe("Application Gateway Arguments");
+                appGatewayArgumentsHeader.NameValues.Count.ShouldBe(5);
+
+                var globalArgumentsHeader = parsedPage.Headers[3];
+                globalArgumentsHeader.Title.ShouldBe("Global Arguments");
+                globalArgumentsHeader.NameValues.Count.ShouldBe(7);
+
+
+                var enableAddonsOption = argumentsHeader.NameValues.FirstOrDefault(x => x.Name == "--enable-addons -a");
+                enableAddonsOption.ShouldNotBeNull();
+                enableAddonsOption.Value.ShouldContain("- http_application_routing : configure ingress with automatic public DNS name creation.");
+            }
+
         }
     }
 }
