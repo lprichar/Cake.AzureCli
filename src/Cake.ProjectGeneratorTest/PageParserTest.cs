@@ -1,4 +1,6 @@
 using Cake.ProjectGenerator.Test.Resources;
+using Microsoft.VisualBasic;
+
 using NUnit.Framework;
 using Shouldly;
 using System;
@@ -111,18 +113,6 @@ namespace Cake.AzCliParser.Test
             [Test]
             public void TestAzAksCreate()
             {
-                /*
-                 * The implementation that is tested here is currently
-                 * only a bit more that a "workaround".
-                 * This test should be expanded much further and
-                 * the implementation should be modified accordingly.
-                 *
-                 * Currently the implementation only ignores "listItems"
-                 * and does not recognize them as valid values.
-                 * Hence it does not provide a fully typed implementation
-                 * of those values.
-                 */
-
                 // ARRANGE
                 var azAksCreate = ResourceManager.GetAzAksCreate();
                 var pageParser = new PageParser();
@@ -155,6 +145,23 @@ namespace Cake.AzCliParser.Test
                 enableAddonsOption.Value.ShouldContain("- http_application_routing : configure ingress with automatic public DNS name creation.");
             }
 
+            [Test]
+            public void TestWebappConnectionUpdatePostgresFlexible()
+            {
+                // ARRANGE
+                var azAksCreate = ResourceManager.GetWebappConnectionUpdatePostgresFlexible();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParseString(azAksCreate);
+
+                // ASSERT
+                var commandHeader = parsedPage.Headers.FirstOrDefault(h => h.Title == "AuthType Arguments");
+                commandHeader.ShouldNotBeNull();
+                var argument = commandHeader.NameValues.ShouldHaveSingleItem();
+                argument.Name.ShouldBe("--secret");
+                argument.Value.ShouldContain("secret-name : One of <secret, secret-uri, secret-name> is required.");
+            }
         }
     }
 }

@@ -34,5 +34,10 @@ namespace Cake.ProjectGenerator.Test.Resources
         {
             return GetResource("AzAksCreate.txt");
         }
+
+        public static string GetWebappConnectionUpdatePostgresFlexible()
+        {
+            return GetResource("WebappConnectionUpdatePostgresFlexible.txt");
+        }
     }
 }
