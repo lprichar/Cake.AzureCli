@@ -13,7 +13,8 @@ namespace Cake.AzCliParser
             "^Commands:$",
             "^Subgroups:$",
             "^Please let us know how we are doing",
-            "^For more specific examples"
+            "^For more specific examples",
+            "^To search AI knowledge base",
         };
 
         public AzCliGroupParser(ILogger logger) : base(logger) { }
@@ -60,6 +61,10 @@ namespace Cake.AzCliParser
         {
             var name = nv.Name;
             var isPreview = ParseTag(ref name, "[Preview]");
+            if (!isPreview)
+            {
+                isPreview = ParseTag(ref name, "[Experimental]");
+            }
             var isDeprecated = ParseTag(ref name, "[Deprecated]");
             return new CliCommand
             {

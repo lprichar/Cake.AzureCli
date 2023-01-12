@@ -1,0 +1,53 @@
+﻿Command
+    az webapp connection update postgres-flexible : Update a webapp to postgres-flexible connection.
+
+Arguments
+    --client-type       : The client type used on the webapp.  Allowed values: django, dotnet, go,
+                          java, nodejs, none, php, python, ruby, springBoot.
+    --connection        : Name of the webapp connection.
+    --id                : The resource id of the connection. ['--resource-group', '--name', '--
+                          connection'] are required if '--id' is not specified.
+    --name -n           : Name of the webapp. Required if '--id' is not specified.
+    --no-wait           : Do not wait for the long-running operation to finish.
+    --resource-group -g : The resource group which contains the webapp. Required if '--id' is not
+                          specified.
+    --vault-id          : The id of key vault to store secret value.
+
+AuthType Arguments
+    --secret            : The secret auth info.
+        Usage: --secret name=XX secret=XX
+
+        name    : Required. Username or account name for secret auth.
+        secret  : One of <secret, secret-uri, secret-name> is required. Password or account key for
+        secret auth.
+        secret-uri  : One of <secret, secret-uri, secret-name> is required. Keyvault secret uri
+        which stores password.
+        secret-name : One of <secret, secret-uri, secret-name> is required. Keyvault secret name
+        which stores password. It's for AKS only.
+
+Global Arguments
+    --debug             : Increase logging verbosity to show all debug logs.
+    --help -h           : Show this help message and exit.
+    --only-show-errors  : Only show errors, suppressing warnings.
+    --output -o         : Output format.  Allowed values: json, jsonc, none, table, tsv, yaml,
+                          yamlc.  Default: json.
+    --query             : JMESPath query string. See http://jmespath.org/ for more information and
+                          examples.
+    --subscription      : Name or ID of subscription. You can configure the default subscription
+                          using `az account set -s NAME_OR_ID`.
+    --verbose           : Increase logging verbosity. Use --debug for full debug logs.
+
+Examples
+    Update the client type of a connection with resource name
+        az webapp connection update postgres-flexible -g WebAppRG -n MyWebApp --connection
+        MyConnection --client-type dotnet
+
+    Update the client type of a connection with resource id
+        az webapp connection update postgres-flexible --id /subscriptions/{subscription}/resourceGro
+        ups/{source_resource_group}/providers/Microsoft.Web/sites/{site}/providers/Microsoft.Service
+        Linker/linkers/{linker} --client-type dotnet
+
+To search AI knowledge base for examples, use: az find "az webapp connection update postgres-
+flexible"
+
+Please let us know how we are doing: https://aka.ms/azureclihats

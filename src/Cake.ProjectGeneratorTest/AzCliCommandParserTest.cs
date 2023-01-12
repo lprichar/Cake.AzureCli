@@ -236,5 +236,48 @@ ces""}. For example: @{ ""ServiceTypeName01""
             example.Example.ShouldBe("az aks install-connector --name MyManagedCluster --resource-group MyResourceGroup");
         }
 
+        [Test]
+        public void ParseArgsWithCommaSeparator()
+        {
+            // ARRANGE
+            var parsedPage = new ParsedPage
+            {
+                Headers = new List<PageHeader>
+                {
+                    new PageHeader("Command")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("az ad app permission grant : Grant the app an API Delegated permissions.",
+                                @"Grant the app an API Delegated permissions.
+A service principal must exist for the app when running this command. To create a
+corresponding service principal, use `az ad sp create --id {appId}`.
+For Application permissions, please use ""ad app permission admin-consent""")
+                        },
+                    },
+                    new PageHeader("Arguments")
+                    {
+                        NameValues = new List<NameValue>
+                        {
+                            new NameValue("--id, --client-id    [Required]",
+                                @"The id of the client service principal for the application
+which is authorized to act on behalf of a signed-in user when
+accessing an API."),
+                        }
+                    },
+                }
+            };
+            var fakeLogger = new FakeLogger();
+            var azCliParserService = new AzCliCommandParser(fakeLogger);
+
+            // ACT
+            var cliCommand = azCliParserService.ParsePage(parsedPage);
+
+            // ASSERT
+            var argument = cliCommand.Arguments.ShouldHaveSingleItem();
+            argument.Name.ShouldBe("--id");
+            argument.ShortName.ShouldBe("--client-id");
+            argument.Required.ShouldBeTrue();
+        }
     }
 }

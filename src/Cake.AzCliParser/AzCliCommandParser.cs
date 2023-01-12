@@ -1,4 +1,5 @@
-﻿using Cake.AzCli.Core.Models;
+﻿using System;
+using Cake.AzCli.Core.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace Cake.AzCliParser
             "^Examples$",
             "^For more specific examples",
             "^Please let us know how we are doing",
-            "^Positional$" // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
+            "^Positional$", // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
+            "^To search AI knowledge base",
         };
 
         public AzCliCommandParser(ILogger logger) : base(logger) { }
@@ -100,7 +102,7 @@ namespace Cake.AzCliParser
 
         private (string LongName, string ShortName) GetNames(string name)
         {
-            var parts = name.Split(' ');
+            var parts = name.Split(new[]{' ', ','}, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length > 2)
             {
                 _logger.Warn($"Multiple synonyms for command {name}, just using first and last");

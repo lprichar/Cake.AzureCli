@@ -1,4 +1,6 @@
 using Cake.ProjectGenerator.Test.Resources;
+using Microsoft.VisualBasic;
+
 using NUnit.Framework;
 using Shouldly;
 using System;
@@ -106,6 +108,59 @@ namespace Cake.AzCliParser.Test
                 pageHeader.TextBlocks[2].Text.ShouldBe("Log in with a service principal using client secret. Use -p=secret if the first character of the password is '-'.");
                 pageHeader.TextBlocks[2].NestedText.Text.ShouldBe(
                     "az login --service-principal -u http://azure-cli-2016-08-05-14-31-15 -p VerySecret --tenant contoso.onmicrosoft.com");
+            }
+
+            [Test]
+            public void TestAzAksCreate()
+            {
+                // ARRANGE
+                var azAksCreate = ResourceManager.GetAzAksCreate();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParseString(azAksCreate);
+
+                // ASSERT
+                parsedPage.Headers.Count.ShouldBe(7);
+
+                var commandHeader = parsedPage.Headers[0];
+                commandHeader.Title.ShouldBe("Command");
+                commandHeader.NameValues.Count.ShouldBe(1);
+
+                var argumentsHeader = parsedPage.Headers[1];
+                argumentsHeader.Title.ShouldBe("Arguments");
+                argumentsHeader.NameValues.Count.ShouldBe(95);
+
+                var appGatewayArgumentsHeader = parsedPage.Headers[2];
+                appGatewayArgumentsHeader.Title.ShouldBe("Application Gateway Arguments");
+                appGatewayArgumentsHeader.NameValues.Count.ShouldBe(5);
+
+                var globalArgumentsHeader = parsedPage.Headers[3];
+                globalArgumentsHeader.Title.ShouldBe("Global Arguments");
+                globalArgumentsHeader.NameValues.Count.ShouldBe(7);
+
+
+                var enableAddonsOption = argumentsHeader.NameValues.FirstOrDefault(x => x.Name == "--enable-addons -a");
+                enableAddonsOption.ShouldNotBeNull();
+                enableAddonsOption.Value.ShouldContain("- http_application_routing : configure ingress with automatic public DNS name creation.");
+            }
+
+            [Test]
+            public void TestWebappConnectionUpdatePostgresFlexible()
+            {
+                // ARRANGE
+                var azAksCreate = ResourceManager.GetWebappConnectionUpdatePostgresFlexible();
+                var pageParser = new PageParser();
+
+                // ACT
+                var parsedPage = pageParser.ParseString(azAksCreate);
+
+                // ASSERT
+                var commandHeader = parsedPage.Headers.FirstOrDefault(h => h.Title == "AuthType Arguments");
+                commandHeader.ShouldNotBeNull();
+                var argument = commandHeader.NameValues.ShouldHaveSingleItem();
+                argument.Name.ShouldBe("--secret");
+                argument.Value.ShouldContain("secret-name : One of <secret, secret-uri, secret-name> is required.");
             }
         }
     }

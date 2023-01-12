@@ -94,8 +94,7 @@ namespace Cake.AzCliParser
         public static bool IsNameValuePair(string line)
         {
             var numberOfPrefixingSpaces = new Regex("^( )+[^ ]").Match(line).Groups[1].Captures.Count;
-            var lineIsIndentedPrettyFar = numberOfPrefixingSpaces > 12;
-            return line.Contains(" : ") && !lineIsIndentedPrettyFar;
+            return line.Contains(" : ") && numberOfPrefixingSpaces == 4;
         }
 
         private bool IsHeader(string line)
