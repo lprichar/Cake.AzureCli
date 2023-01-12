@@ -1,5 +1,4 @@
-#reference "../src/Cake.AzureCli/bin/Debug/netstandard2.0/Cake.AzureCli.dll"
-#addin "nuget:?package=Cake.AzureCli&version=1.2.0"
+#reference "../src/Cake.AzureCli/bin/Debug/net7.0/Cake.AzureCli.dll"
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -32,7 +31,7 @@ Task("Login")
 
    // 'az account set' is accessed with Az().Account.Set()
    Az().Account.Set(new AzAccountSetSettings {
-      Subscription = subscription
+      Name = subscription
    });
 });
 
@@ -48,51 +47,9 @@ Task("ListResourceGroups")
    }
 });
 
-const string storageAccountName = "MyStorageAccount";
-
-Task("GetStorageKey")
-   .Does(() =>
-{
-   
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Task("Default")
 .Does(() => {
-   Information("try: .\\build.ps1 -target=\"ListResourceGroups\" --username=\"user@address.com\" -password=myPassword");
+   Information("try: .\\build.ps1 --target=\"ListResourceGroups\" --username=\"user@address.com\" --password=myPassword");
 });
 
 RunTarget(target);

@@ -1,4 +1,4 @@
-#reference "../src/Cake.AzureCli/bin/Debug/netstandard2.0/Cake.AzureCli.dll"
+#reference "../src/Cake.AzureCli/bin/Debug/net7.0/Cake.AzureCli.dll"
 
 var target = Argument("target", "Default");
 var username = Argument<string>("username", null);
