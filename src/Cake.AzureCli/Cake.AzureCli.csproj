@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Authors>Lee Richardson</Authors>
     <Company />
     <Description>A Cake plugin that provides strongly typed, fully intellisense documented, and cross platform access
@@ -27,9 +27,9 @@ to all 2,833 Azure CLI commands and their 32,669 individual settings.</Descripti
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cake.Common" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Cake.Common" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="Cake.Core" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
