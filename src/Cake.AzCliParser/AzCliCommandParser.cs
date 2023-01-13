@@ -18,6 +18,7 @@ namespace Cake.AzCliParser
             "^Please let us know how we are doing",
             "^Positional$", // todo: maybe we could generate additional examples from this command, it comes up somewhat frequently
             "^To search AI knowledge base",
+            ".*\"$", // covers the wrapping of the prior section e.g. 'To search AI knowlege base...\n[stuff]"'
         };
 
         public AzCliCommandParser(ILogger logger) : base(logger) { }
