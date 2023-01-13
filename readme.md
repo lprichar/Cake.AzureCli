@@ -1,4 +1,4 @@
-# Cake.Azure
+# Cake.AzureCli
 A [Cake](http://cakebuild.net) plugin that provides strongly typed, fully intellisense documented, and cross platform access
 to all 2,833 Azure CLI commands and their 32,669 individual settings.
 
@@ -6,7 +6,7 @@ to all 2,833 Azure CLI commands and their 32,669 individual settings.
 
 Reference with:
 
-`#addin "nuget:?package=Cake.AzureCli&version=1.2.0"`
+`#addin "nuget:?package=Cake.AzureCli&version=1.3.0"`
 
 All Az commands are accessed with `Az()` and then dot separated groups and a command all in Pascal case e.g. `az group deployment operation list` on the cli is accessed like  `Az().Group.Deployment.Operation.List()` in Cake.AzureCli.
 

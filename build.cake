@@ -15,11 +15,11 @@ Task("Publish")
 {
    if (string.IsNullOrEmpty(version)) throw new ArgumentNullException(nameof(version));
    Information("Publishing Cake.AzureCli.csproj as version " + version);
-   DotNetCorePack("./src/Cake.AzureCli/Cake.AzureCli.csproj", new DotNetCorePackSettings {
+   DotNetPack("./src/Cake.AzureCli/Cake.AzureCli.csproj", new DotNetPackSettings {
       NoBuild = false,
       IncludeSymbols = true,
       Configuration = configuration,
-      MSBuildSettings = new DotNetCoreMSBuildSettings().SetVersion(version)
+      MSBuildSettings = new DotNetMSBuildSettings().SetVersion(version)
    });
 });
 
