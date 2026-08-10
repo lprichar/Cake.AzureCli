@@ -2,6 +2,7 @@
 using Cake.Core;
 using Cake.Core.IO;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -24,9 +25,11 @@ namespace Cake.AzureCli
                 _context.Debug("Executing: " + processArgumentBuilder.RenderSafe());
                 process.Start();
 
-                process.WaitForExit(10);
-                var standardOut = process.StandardOutput.ReadToEnd();
-                var standardError = process.StandardError.ReadToEnd();
+                var standardOutTask = process.StandardOutput.ReadToEndAsync();
+                var standardErrorTask = process.StandardError.ReadToEndAsync();
+                process.WaitForExit();
+                var standardOut = standardOutTask.GetAwaiter().GetResult();
+                var standardError = standardErrorTask.GetAwaiter().GetResult();
                 if (!string.IsNullOrWhiteSpace(standardError))
                 {
                     _context.Error("ERROR EXECUTING: " + standardError);
@@ -34,6 +37,12 @@ namespace Cake.AzureCli
                 else
                 {
                     _context.Debug(standardOut);
+                }
+
+                if (process.ExitCode != 0)
+                {
+                    throw new InvalidOperationException(
+                        $"Azure CLI command failed with exit code {process.ExitCode}. Command: {processArgumentBuilder.RenderSafe()}{Environment.NewLine}{standardError}");
                 }
 
                 return ToDynamicJson(standardOut);
