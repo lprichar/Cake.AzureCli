@@ -41,8 +41,9 @@ namespace Cake.AzureCli
 
                 if (process.ExitCode != 0)
                 {
+                    var details = !string.IsNullOrWhiteSpace(standardError) ? standardError : standardOut;
                     throw new InvalidOperationException(
-                        $"Azure CLI command failed with exit code {process.ExitCode}. Command: {processArgumentBuilder.RenderSafe()}{Environment.NewLine}{standardError}");
+                        $"Azure CLI command failed with exit code {process.ExitCode}. Command: {processArgumentBuilder.RenderSafe()}{Environment.NewLine}{details}");
                 }
 
                 return ToDynamicJson(standardOut);
